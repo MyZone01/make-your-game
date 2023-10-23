@@ -1,15 +1,15 @@
 # Tâches pour le projet Bomberman
 
 ## Jour 1 : Conception et structure de base
-- [ ] Conception du premier niveau, y compris la disposition des murs et des obstacles.
-- [ ] Création de la structure de dossiers de base.
-- [ ] Création d'un fichier HTML simple.
-- [ ] Mise en place d'une feuille de style CSS de base.
+- [x] Conception du premier niveau, y compris la disposition des murs et des obstacles.
+- [x] Création de la structure de dossiers de base.
+- [x] Création d'un fichier HTML simple.
+- [x] Mise en place d'une feuille de style CSS de base.
 
 ## Jour 2 : Mise en place des éléments graphiques
-- [ ] Création de sprites pour le personnage du joueur et les ennemis.
-- [ ] Création de sprites pour les bombes, les murs et les obstacles.
-- [ ] Gestion des assets audio de base.
+- >[ ] Création de sprites pour le personnage du joueur et les ennemis.
+- >[ ] Création de sprites pour les bombes, les murs et les obstacles.
+- >[ ] Gestion des assets audio de base.
 
 ## Jour 3 : Développement du premier niveau
 - [ ] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
