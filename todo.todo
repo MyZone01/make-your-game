@@ -1,0 +1,36 @@
+# Tâches pour le projet Bomberman
+
+## Jour 1 : Conception et structure de base
+- [ ] Conception du premier niveau, y compris la disposition des murs et des obstacles.
+- [ ] Création de la structure de dossiers de base.
+- [ ] Création d'un fichier HTML simple.
+- [ ] Mise en place d'une feuille de style CSS de base.
+
+## Jour 2 : Mise en place des éléments graphiques
+- [ ] Création de sprites pour le personnage du joueur et les ennemis.
+- [ ] Création de sprites pour les bombes, les murs et les obstacles.
+- [ ] Gestion des assets audio de base.
+
+## Jour 3 : Développement du premier niveau
+- [ ] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
+- [ ] Ajout de la logique pour les ennemis dans le premier niveau.
+- [ ] Mise en place d'une grille de jeu pour le premier niveau.
+- [ ] Détection des collisions basiques dans le premier niveau.
+
+## Jour 4 : Implémentation des bombes et des power-ups
+- [ ] Ajout de la logique pour poser et faire exploser les bombes dans le premier niveau.
+- [ ] Implémentation des power-ups (bombes supplémentaires, vitesse, etc.) dans le premier niveau.
+
+## Jour 5 : Optimisation, test et polissage
+- [ ] Optimisation de base pour maintenir une expérience fluide dans le premier niveau.
+- [ ] Tests et débogage intensifs du premier niveau.
+- [ ] Polissage de l'interface utilisateur du premier niveau.
+
+## Jour 6 : Finalisation du premier niveau et documentation
+- [ ] Finalisation du premier niveau, ajout de détails et de polissage.
+- [ ] Rédaction d'une documentation simple pour le premier niveau.
+
+## Jour 7 : Préparation pour le déploiement
+- [ ] Préparation du premier niveau pour le déploiement, y compris l'emballage des fichiers et la création d'une interface utilisateur pour démarrer le premier niveau.
+
+Gardez à l'esprit que ce planning accéléré vous oblige à simplifier considérablement le premier niveau. Vous devrez vous concentrer sur les fonctionnalités de base pour avoir un prototype jouable en une semaine. Pour créer un jeu complet, vous auriez besoin de plus de temps pour développer plusieurs niveaux, des fonctionnalités avancées, et optimiser davantage les performances.
