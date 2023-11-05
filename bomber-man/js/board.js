@@ -81,9 +81,11 @@ export function createGameBoard() {
 export function destroyWall(x, y) {
     if (isWall(x, y)) {
         // Destroy the wall by replacing it with a void cell
-        // console.log(board[y][x]);
-        // console.log(`c-${x + 1}-${y + 1}`);
-        board[y][x] = 'V';
-        document.getElementById(`c-${y + 1}-${x + 1}`).remove();
+        const cell = document.getElementById(`c-${y + 1}-${x + 1}`);
+        cell.classList.add("explode");
+        setTimeout(() => {
+            board[y][x] = 'V';
+            cell.remove();
+        }, 250);
     }
 }

@@ -44,23 +44,50 @@ body {
     justify-content: center;
     font-size: 1.5rem;
     z-index: 5;
+    animation: bomb 1s ease-in-out infinite;
 }
 
 .bomb::after {
     content: "💣";
 }
 
-/* Bomb animation */
-.bomb {
-    animation: bomb 1s ease-in-out infinite;
+
+.explode {
+    animation: wiggle .25s ease-in-out forwards;
 }
 
+/* Bomb animation */
 @keyframes bomb {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(.75);
+    }
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(-5deg);
+    }
+
+    85% {
+        transform: rotate(5deg);
+        background-color: #661212;
+    }
+
+    95% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+        background-color: #000;
     }
 }
 
