@@ -1,4 +1,4 @@
-import { board } from "./board.js"
+import { isValidMove } from "./board.js"
 
 export const player = document.createElement('div')
 export const playerPosition = { x: 2, y: 2 }
@@ -25,11 +25,13 @@ window.addEventListener('keydown', e => {
 })
 
 export function update() {
+  if (inputDirection.x === 0 && inputDirection.y === 0) return
+
   const newPositionX = playerPosition.x + inputDirection.x
   const newPositionY = playerPosition.y + inputDirection.y
   inputDirection = { x: 0, y: 0 }
 
-  if (board[newPositionY - 1][newPositionX - 1] === 'V') {
+  if (isValidMove(newPositionX - 1, newPositionY - 1)) {
     playerPosition.x = newPositionX
     playerPosition.y = newPositionY
 
@@ -38,7 +40,6 @@ export function update() {
 
   }
   // else {
-  //   console.log(board[newPositionY - 1][newPositionX - 1]);
   //   console.log(`c-${newPositionY}-${newPositionX}`);
   //   console.log(document.getElementById(`c-${newPositionY}-${newPositionX}`));
   // }
