@@ -15,7 +15,7 @@
 - [x] Mise en place d'une grille de jeu pour le premier niveau.
 - [x] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
 - [x] Ajout de la logique pour les ennemis dans le premier niveau.
-- [ ] Détection des collisions basiques dans le premier niveau.
+- [x] Détection des collisions basiques dans le premier niveau.
 
 ## Jour 4 : Implémentation des bombes et des power-ups
 - [ ] Ajout de la logique pour poser et faire exploser les bombes dans le premier niveau.

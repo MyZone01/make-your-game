@@ -1,46 +1,48 @@
-import { isValidMove } from "./board.js"
+import { isValidMove } from "./board.js";
 
-export const player = document.createElement('div')
-export const playerPosition = { x: 2, y: 2 }
-player.style.gridRowStart = playerPosition.y
-player.style.gridColumnStart = playerPosition.x
-player.classList.add('player')
-let inputDirection = { x: 0, y: 0 }
+export class Player {
+  constructor() {
+    this.element = document.createElement('div');
+    this.position = { x: 2, y: 2 };
+    this.element.style.gridRowStart = this.position.y;
+    this.element.style.gridColumnStart = this.position.x;
+    this.element.classList.add('player');
+    this.inputDirection = { x: 0, y: 0 };
 
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'ArrowUp':
-      inputDirection = { x: 0, y: -1 }
-      break
-    case 'ArrowDown':
-      inputDirection = { x: 0, y: 1 }
-      break
-    case 'ArrowLeft':
-      inputDirection = { x: -1, y: 0 }
-      break
-    case 'ArrowRight':
-      inputDirection = { x: 1, y: 0 }
-      break
+    window.addEventListener('keydown', (e) => {
+      switch (e.key) {
+        case 'ArrowUp':
+          this.inputDirection = { x: 0, y: -1 };
+          break;
+        case 'ArrowDown':
+          this.inputDirection = { x: 0, y: 1 };
+          break;
+        case 'ArrowLeft':
+          this.inputDirection = { x: -1, y: 0 };
+          break;
+        case 'ArrowRight':
+          this.inputDirection = { x: 1, y: 0 };
+          break;
+        case ' ':
+          this.inputDirection = { x: 1, y: 0 };
+          break;
+      }
+    });
   }
-})
 
-export function update() {
-  if (inputDirection.x === 0 && inputDirection.y === 0) return
+  update() {
+    if (this.inputDirection.x === 0 && this.inputDirection.y === 0) return;
 
-  const newPositionX = playerPosition.x + inputDirection.x
-  const newPositionY = playerPosition.y + inputDirection.y
-  inputDirection = { x: 0, y: 0 }
+    const newPositionX = this.position.x + this.inputDirection.x;
+    const newPositionY = this.position.y + this.inputDirection.y;
+    this.inputDirection = { x: 0, y: 0 };
 
-  if (isValidMove(newPositionX - 1, newPositionY - 1)) {
-    playerPosition.x = newPositionX
-    playerPosition.y = newPositionY
+    if (isValidMove(newPositionX - 1, newPositionY - 1)) {
+      this.position.x = newPositionX;
+      this.position.y = newPositionY;
 
-    player.style.gridRowStart = playerPosition.y
-    player.style.gridColumnStart = playerPosition.x
-
+      this.element.style.gridRowStart = this.position.y;
+      this.element.style.gridColumnStart = this.position.x;
+    }
   }
-  // else {
-  //   console.log(`c-${newPositionY}-${newPositionX}`);
-  //   console.log(document.getElementById(`c-${newPositionY}-${newPositionX}`));
-  // }
 }
