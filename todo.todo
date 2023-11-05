@@ -12,9 +12,9 @@
 - >[ ] Gestion des assets audio de base.
 
 ## Jour 3 : Développement du premier niveau
+- [x] Mise en place d'une grille de jeu pour le premier niveau.
 - [ ] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
 - [ ] Ajout de la logique pour les ennemis dans le premier niveau.
-- [ ] Mise en place d'une grille de jeu pour le premier niveau.
 - [ ] Détection des collisions basiques dans le premier niveau.
 
 ## Jour 4 : Implémentation des bombes et des power-ups

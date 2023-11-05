@@ -1,12 +1,37 @@
+import { board, gameBoard } from './board.js'
 import { update as updatePlayer, player, playerPosition } from './player.js'
 const GRID_SIZE = 21
 const SPEED = 10
 let lastRenderTime = 0
 let gameOver = false
-const gameBoard = document.getElementById('game-board')
-console.log(player);
-gameBoard.appendChild(player);
-console.log(gameBoard.childNodes);
+
+// Function to create the game board from the 2D array
+function createGameBoard() {
+  for (let i = 0; i < GRID_SIZE; i++) {
+    for (let j = 0; j < GRID_SIZE; j++) {
+      if (board[i][j] === 'V') continue;
+
+      const cell = document.createElement('div');
+
+      if (board[i][j] === 'B') {
+        cell.classList.add('block');
+      } else if (board[i][j] === 'W') {
+        cell.classList.add('wall');
+      }
+
+      cell.setAttribute('id', `c-${i+1}-${j+1}`)
+
+      gameBoard.appendChild(cell);
+
+      cell.style.gridRowStart = i + 1
+      cell.style.gridColumnStart = j + 1
+    }
+  }
+  gameBoard.appendChild(player)
+}
+
+// Call the function to create the game board
+createGameBoard();
 
 export function randomGridPosition() {
   return {
@@ -20,7 +45,7 @@ export function outsideGrid(position) {
     position.x < 1 || position.x > GRID_SIZE ||
     position.y < 1 || position.y > GRID_SIZE
   )
-} 
+}
 
 
 function main(currentTime) {
