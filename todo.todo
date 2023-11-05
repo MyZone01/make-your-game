@@ -13,7 +13,7 @@
 
 ## Jour 3 : Développement du premier niveau
 - [x] Mise en place d'une grille de jeu pour le premier niveau.
-- [ ] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
+- [x] Implémentation de la mécanique de mouvement du joueur dans le premier niveau.
 - [ ] Ajout de la logique pour les ennemis dans le premier niveau.
 - [ ] Détection des collisions basiques dans le premier niveau.
 
