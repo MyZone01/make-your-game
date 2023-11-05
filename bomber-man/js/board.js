@@ -87,5 +87,10 @@ export function destroyWall(x, y) {
             board[y][x] = 'V';
             cell.remove();
         }, 250);
+        return true;
+    } else if (board[y][x] == 'B') {
+        return false;
+    } else {
+        return true;
     }
 }

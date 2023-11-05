@@ -9,6 +9,7 @@ export class Player {
     this.element.style.gridColumnStart = this.position.x;
     this.element.classList.add('player');
     this.inputDirection = { x: 0, y: 0 };
+    this.dead = false;
 
     this.bombs = [];
     this.currentBombType = 'super'; // Initial bomb type
@@ -99,5 +100,14 @@ export class Player {
       this.element.style.gridRowStart = this.position.y;
       this.element.style.gridColumnStart = this.position.x;
     }
+  }
+}
+
+export const player = new Player();
+
+export function affectPlayer(x, y) {
+  if (player.position.x === x && player.position.y === y) {
+    player.dead = true;
+    player.element.remove();
   }
 }

@@ -1,6 +1,6 @@
 import { createGameBoard, gameBoard } from './board.js'
 import { createEnemies, enemies, moveEnemies } from './enemy.js'
-import { Player } from './player.js'
+import { player } from './player.js'
 const SPEED = 5
 let lastRenderTime = 0
 let gameOver = false
@@ -12,7 +12,6 @@ createGameBoard()
 createEnemies(gameBoard);
 
 // Create the player
-const player = new Player();
 gameBoard.appendChild(player.element)
 
 function gameLoop(currentTime) {
@@ -48,6 +47,9 @@ function checkDeath() {
     if (enemy.x === player.position.x && enemy.y === player.position.y) {
       gameOver = true
     }
+  }
+  if (player.dead) {
+    gameOver = true
   }
   gameOver = false
 }

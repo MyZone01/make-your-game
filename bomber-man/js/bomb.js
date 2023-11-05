@@ -1,5 +1,6 @@
 import { destroyWall, gameBoard } from "./board.js";
 import { affectEnemies } from "./enemy.js";
+import { affectPlayer } from "./player.js";
 
 export default class Bomb {
     constructor(x, y, explosionRadius) {
@@ -17,18 +18,30 @@ export default class Bomb {
 
     explode() {
         this.element.classList.add('explosion');
+        let keepUpDirection = true
+        let keepDownDirection = true
+        let keepLeftDirection = true
+        let keepRightDirection = true
         for (let i = 1; i <= this.explosionRadius; i++) {
-            this.explodeInDirection(this.x, this.y - i); // Up
-            this.explodeInDirection(this.x, this.y + i); // Down
-            this.explodeInDirection(this.x - i, this.y); // Left
-            this.explodeInDirection(this.x + i, this.y); // Right
+            if (keepUpDirection) {
+                keepUpDirection = this.explodeInDirection(this.x, this.y - i); // Up
+            }
+            if (keepDownDirection) {
+                keepDownDirection = this.explodeInDirection(this.x, this.y + i); // Down
+            }
+            if (keepLeftDirection) {
+                keepLeftDirection = this.explodeInDirection(this.x - i, this.y); // Left
+            }
+            if (keepRightDirection) {
+                keepRightDirection = this.explodeInDirection(this.x + i, this.y); // Right
+            }
         }
         gameBoard.removeChild(this.element);
     }
 
     explodeInDirection(x, y) {
-        destroyWall(x - 1, y - 1); // Destroy a wall
+        affectPlayer(x, y);
         affectEnemies(x, y);
-        // affectPlayer(x, y);
+        return destroyWall(x - 1, y - 1); // Destroy a wall
     }
 }
