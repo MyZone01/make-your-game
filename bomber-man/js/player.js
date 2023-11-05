@@ -1,4 +1,5 @@
 import { isValidMove } from "./board.js";
+import Bomb from "./bomb.js";
 
 export class Player {
   constructor() {
@@ -8,6 +9,9 @@ export class Player {
     this.element.style.gridColumnStart = this.position.x;
     this.element.classList.add('player');
     this.inputDirection = { x: 0, y: 0 };
+
+    this.bombs = [];
+    this.bombCount = 0;
 
     window.addEventListener('keydown', (e) => {
       switch (e.key) {
@@ -24,10 +28,30 @@ export class Player {
           this.inputDirection = { x: 1, y: 0 };
           break;
         case ' ':
-          this.inputDirection = { x: 1, y: 0 };
+          this.placeBomb();
           break;
       }
     });
+  }
+
+  placeBomb() {
+    if (this.bombCount < 3) {
+      const bomb = new Bomb(this.position.x, this.position.y);
+      this.bombs.push(bomb);
+      this.bombCount++;
+      bomb.explosionTimer = setTimeout(() => {
+        bomb.explode();
+        this.removeBomb(bomb);
+      }, 3000);
+    }
+  }
+
+  removeBomb(bomb) {
+    const index = this.bombs.indexOf(bomb);
+    if (index !== -1) {
+      this.bombs.splice(index, 1);
+      this.bombCount--;
+    }
   }
 
   update() {

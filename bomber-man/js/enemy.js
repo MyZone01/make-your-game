@@ -90,3 +90,14 @@ export function moveEnemies() {
         enemy.moveRandomly();
     }
 }
+
+export function affectEnemies(x, y) {
+    for (let i = 0; i < numEnemies; i++) {
+        const enemy = enemies[i];
+        if (enemy.x === x && enemy.y === y) {
+            enemy.element.remove();
+            enemies.splice(i, 1);
+            numEnemies--;
+        }
+    }
+}

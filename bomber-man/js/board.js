@@ -5,7 +5,7 @@ const GRID_SIZE = 21
 export const board = [
     // 'V' for void cell, 'B' for indestructible block, 'W' for destructible wall
     ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
-    ['B', 'V', 'V', 'V', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'V', 'W', 'V', 'W', 'V', 'B'],
+    ['B', 'V', 'W', 'W', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'V', 'W', 'V', 'W', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B'],
     ['B', 'V', 'V', 'V', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'V', 'W', 'V', 'W', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B'],
@@ -47,6 +47,14 @@ export function isValidMove(x, y) {
     return cellValue === 'V';
 }
 
+export function isWall(x, y) {
+    if (outsideGrid({ x, y })) {
+        return false
+    }
+    const cellValue = board[y][x];
+    return cellValue === 'W';
+}
+
 export function createGameBoard() {
     for (let i = 0; i < GRID_SIZE; i++) {
         for (let j = 0; j < GRID_SIZE; j++) {
@@ -67,5 +75,15 @@ export function createGameBoard() {
             cell.style.gridRowStart = i + 1
             cell.style.gridColumnStart = j + 1
         }
+    }
+}
+
+export function destroyWall(x, y) {
+    if (isWall(x, y)) {
+        // Destroy the wall by replacing it with a void cell
+        // console.log(board[y][x]);
+        // console.log(`c-${x + 1}-${y + 1}`);
+        board[y][x] = 'V';
+        document.getElementById(`c-${y + 1}-${x + 1}`).remove();
     }
 }

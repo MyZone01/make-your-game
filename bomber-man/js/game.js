@@ -49,5 +49,5 @@ function checkDeath() {
       gameOver = true
     }
   }
-  // gameOver = false
+  gameOver = false
 }
