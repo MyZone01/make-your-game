@@ -10,12 +10,16 @@ export class Player {
     this.element.classList.add('player');
     this.inputDirection = { x: 0, y: 0 };
     this.dead = false;
+    this.addBomb = false;
+    this.pause = false;
 
     this.bombs = [];
     this.currentBombType = 'super'; // Initial bomb type
     this.bombCount = 0; // Track the number of bombs placed
 
     window.addEventListener('keydown', (e) => {
+      if (this.pause) return
+
       switch (e.key) {
         case 'ArrowUp':
           this.inputDirection = { x: 0, y: -1 };
@@ -30,13 +34,14 @@ export class Player {
           this.inputDirection = { x: 1, y: 0 };
           break;
         case ' ':
-          if (!this.detonateBomb()) this.placeBomb();
+          this.addBomb = true;
           break;
       }
     });
   }
 
   placeBomb() {
+    this.addBomb = false
     if (this.bombCount < 3) { // Check if the player can place a bomb
       const bomb = new Bomb(this.position.x, this.position.y, this.getBombRadius());
       this.bombs.push(bomb);
@@ -48,7 +53,29 @@ export class Player {
         bomb.explosionTimer = setTimeout(() => {
           bomb.explode();
           this.removeBomb(bomb);
-        }, 3000);
+        }, bomb.remainingTime);
+      }
+    }
+  }
+
+  toggleBombTime() {
+    if (this.pause) {
+      for (const bomb of this.bombs) {
+        if (bomb.explosionTimer) {
+          bomb.remainingTime -= (Date.now() - bomb.startTime);
+          clearTimeout(bomb.explosionTimer);
+          bomb.explosionTimer = null;
+        }
+      }
+    } else {
+      for (const bomb of this.bombs) {
+        if (!bomb.explosionTimer) {
+          bomb.startTime = Date.now();
+          bomb.explosionTimer = setTimeout(() => {
+            bomb.explode();
+            this.removeBomb(bomb);
+          }, bomb.remainingTime);
+        }
       }
     }
   }
@@ -65,6 +92,7 @@ export class Player {
   }
 
   detonateBomb() {
+    this.addBomb = false
     for (const bomb of this.bombs) {
       if (bomb.manualBomb && !bomb.explosionTimer) {
         bomb.explode();
@@ -87,6 +115,9 @@ export class Player {
   }
 
   update() {
+    if (this.addBomb) {
+      if (!this.detonateBomb()) this.placeBomb();
+    }
     if (this.inputDirection.x === 0 && this.inputDirection.y === 0) return;
 
     const newPositionX = this.position.x + this.inputDirection.x;

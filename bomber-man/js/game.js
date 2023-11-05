@@ -4,6 +4,7 @@ import { player } from './player.js'
 const SPEED = 5
 let lastRenderTime = 0
 let gameOver = false
+let gamePause = false
 
 // Call the function to create the game board
 createGameBoard()
@@ -22,14 +23,14 @@ function gameLoop(currentTime) {
     return
   }
 
-
   window.requestAnimationFrame(gameLoop)
   const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
   if (secondsSinceLastRender < 1 / SPEED) return
 
   lastRenderTime = currentTime
-
-  update()
+  if (!gamePause) {
+    update()
+  }
 }
 
 window.requestAnimationFrame(gameLoop)
@@ -53,3 +54,11 @@ function checkDeath() {
   }
   gameOver = false
 }
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'p') {
+    gamePause = !gamePause
+    player.pause = gamePause
+    player.toggleBombTime()
+  }
+})

@@ -14,6 +14,8 @@ export default class Bomb {
         this.element.style.gridColumnStart = this.x;
         gameBoard.appendChild(this.element);
         this.manualBomb = false;
+        this.remainingTime = 3000;
+        this.startTime = Date.now();
     }
 
     explode() {
@@ -40,7 +42,7 @@ export default class Bomb {
     }
 
     explodeInDirection(x, y) {
-        affectPlayer(x, y);
+        // affectPlayer(x, y);
         affectEnemies(x, y);
         return destroyWall(x - 1, y - 1); // Destroy a wall
     }
