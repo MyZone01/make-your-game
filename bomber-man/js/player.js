@@ -11,7 +11,8 @@ export class Player {
     this.inputDirection = { x: 0, y: 0 };
 
     this.bombs = [];
-    this.bombCount = 0;
+    this.currentBombType = 'super'; // Initial bomb type
+    this.bombCount = 0; // Track the number of bombs placed
 
     window.addEventListener('keydown', (e) => {
       switch (e.key) {
@@ -28,22 +29,52 @@ export class Player {
           this.inputDirection = { x: 1, y: 0 };
           break;
         case ' ':
-          this.placeBomb();
+          if (!this.detonateBomb()) this.placeBomb();
           break;
       }
     });
   }
 
   placeBomb() {
-    if (this.bombCount < 3) {
-      const bomb = new Bomb(this.position.x, this.position.y);
+    if (this.bombCount < 3) { // Check if the player can place a bomb
+      const bomb = new Bomb(this.position.x, this.position.y, this.getBombRadius());
       this.bombs.push(bomb);
       this.bombCount++;
-      bomb.explosionTimer = setTimeout(() => {
+      if (this.currentBombType === 'manual') {
+        bomb.manualBomb = true; // Set the bomb as manual
+      } else {
+        // Set a timer to explode the bomb after 3 seconds for non-manual bombs
+        bomb.explosionTimer = setTimeout(() => {
+          bomb.explode();
+          this.removeBomb(bomb);
+        }, 3000);
+      }
+    }
+  }
+
+  getBombRadius() {
+    switch (this.currentBombType) {
+      case 'simple':
+        return 1;
+      case 'super':
+        return 3;
+      default:
+        return 1;
+    }
+  }
+
+  detonateBomb() {
+    for (const bomb of this.bombs) {
+      if (bomb.manualBomb && !bomb.explosionTimer) {
         bomb.explode();
         this.removeBomb(bomb);
-      }, 3000);
+        return true
+      }
     }
+  }
+
+  changeBombType(bombType) {
+    this.currentBombType = bombType;
   }
 
   removeBomb(bomb) {

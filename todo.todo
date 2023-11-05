@@ -18,7 +18,7 @@
 - [x] Détection des collisions basiques dans le premier niveau.
 
 ## Jour 4 : Implémentation des bombes et des power-ups
-- [ ] Ajout de la logique pour poser et faire exploser les bombes dans le premier niveau.
+- [x] Ajout de la logique pour poser et faire exploser les bombes dans le premier niveau.
 - [ ] Implémentation des power-ups (bombes supplémentaires, vitesse, etc.) dans le premier niveau.
 
 ## Jour 5 : Optimisation, test et polissage
