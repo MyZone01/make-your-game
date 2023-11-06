@@ -22,7 +22,22 @@ body {
     border: .25vmin solid black;
     border-radius: 50%;
     z-index: 5;
-    transition: all .25s ease-in-out;
+}
+
+@keyframes movePlayer {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(var(--translate-x), var(--translate-y));
+    }
+}
+
+.player {
+    animation: none;
+    animation-fill-mode: forwards;
+    animation-duration: 0.125s;
 }
 
 .enemy {
@@ -36,6 +51,12 @@ body {
     border: .25vmin solid black;
     border-radius: 50%;
     z-index: 10;
+}
+
+.enemy {
+    animation: none;
+    animation-fill-mode: forwards;
+    animation-duration: 0.125s;
 }
 
 .bomb {

@@ -126,16 +126,22 @@ export class Player {
 
     const newPositionX = this.position.x + this.inputDirection.x;
     const newPositionY = this.position.y + this.inputDirection.y;
-    
+
     if (isValidMove(newPositionX - 1, newPositionY - 1)) {
-      this.position.x = newPositionX;
-      this.position.y = newPositionY;
+      this.element.style.setProperty('--translate-x', `${this.element.clientWidth * this.inputDirection.x}px`);
+      this.element.style.setProperty('--translate-y', `${this.element.clientHeight * this.inputDirection.y}px`);
 
+      this.element.style.animationName = "movePlayer";
+
+      this.element.addEventListener('animationend', () => {
+        this.position.x = newPositionX;
+        this.position.y = newPositionY;
         this.element.style.gridRowStart = this.position.y;
-        this.element.style.gridColumnStart = this.position.x;      
+        this.element.style.gridColumnStart = this.position.x;
+        this.element.style.animationName = "none";
+        this.inputDirection = { x: 0, y: 0 };
+      }, { once: true });
     }
-
-    this.inputDirection = { x: 0, y: 0 };
   }
 }
 

@@ -1,7 +1,7 @@
 import { createGameBoard, gameBoard } from "./board.js";
 import { createEnemies, enemies, moveEnemies } from "./enemy.js";
 import { player } from "./player.js";
-const SPEED = 5;
+const SPEED = 20;
 let lastRenderTime = 0;
 let gameOver = false;
 let gamePause = false;

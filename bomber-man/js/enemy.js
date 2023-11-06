@@ -1,10 +1,12 @@
 import { isValidMove, randomGridPosition } from "./board.js";
 
 class Enemy {
-    constructor({ x, y }) {
+    constructor({ x, y }, index) {
         this.x = x;
         this.y = y;
+        this.wait = 5;
         this.element = null;
+        this.index = index; // Store the enemy index
     }
 
     setElement(element) {
@@ -14,22 +16,26 @@ class Enemy {
     }
 
     moveRandomly() {
-        const directions = ['up', 'down', 'left', 'right'];
-        const randomDirection = directions[Math.floor(Math.random() * directions.length)];
+        this.wait--;
+        if (this.wait === 0) {
+            this.wait = 5;
+            const directions = ['up', 'down', 'left', 'right'];
+            const randomDirection = directions[Math.floor(Math.random() * directions.length)];
 
-        switch (randomDirection) {
-            case 'up':
-                this.move(0, -1);
-                break;
-            case 'down':
-                this.move(0, 1);
-                break;
-            case 'left':
-                this.move(-1, 0);
-                break;
-            case 'right':
-                this.move(1, 0);
-                break;
+            switch (randomDirection) {
+                case 'up':
+                    this.move(0, -1);
+                    break;
+                case 'down':
+                    this.move(0, 1);
+                    break;
+                case 'left':
+                    this.move(-1, 0);
+                    break;
+                case 'right':
+                    this.move(1, 0);
+                    break;
+            }
         }
     }
 
@@ -43,9 +49,19 @@ class Enemy {
             this.x = newX;
             this.y = newY;
 
+            // Update the CSS variables for translation based on the enemy's position
+            this.element.style.setProperty(`--translate-${this.index}-x`, `${this.element.clientWidth * dx}px`);
+            this.element.style.setProperty(`--translate-${this.index}-y`, `${this.element.clientHeight * dy}px`);
+
+            this.element.style.animationName = "moveEnemy" + this.index;
+
+            this.element.addEventListener('animationend', () => {
+                this.element.style.gridRow = this.y;
+                this.element.style.gridColumn = this.x;
+                this.element.style.animationName = "none";
+            }, { once: true });
+
             // Move the enemy in the DOM
-            this.element.style.gridRow = this.y;
-            this.element.style.gridColumn = this.x;
         }
     }
 }
@@ -73,9 +89,22 @@ export function createEnemies(board) {
         enemyElement.classList.add('enemy');
         // You can set enemyElement's initial position styles here
 
-        const enemy = new Enemy(randomPosition);
+        const enemy = new Enemy(randomPosition, i);
         enemy.setElement(enemyElement);
-        enemyElement.setAttribute('id', `e-${i + 1}`)
+        enemyElement.setAttribute('id', `e-${i + 1}`);
+
+        const keyframes = `@keyframes moveEnemy${i} {
+            0% {
+              transform: translate(0, 0);
+            }
+            100% {
+              transform: translate(var(--translate-${i}-x), var(--translate-${i}-y));
+            }
+        }`;
+
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = keyframes;
+        document.head.appendChild(styleElement);
 
         // Append the enemy element to the game board
         board.appendChild(enemyElement);
