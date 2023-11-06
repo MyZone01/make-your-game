@@ -52,6 +52,7 @@ function checkDeath() {
   if (player.dead) {
     gameOver = true;
   }
+  // gameOver = false;
 }
 
 window.addEventListener("keydown", (e) => {

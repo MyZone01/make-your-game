@@ -53,13 +53,23 @@ class Enemy {
 // Create an array to store enemies
 export const enemies = [];
 const enemiesPositions = [
-    { x: 2, y: 5 },
+    { x: 6, y: 4 },
     { x: 20, y: 2 },
+    { x: 4, y: 10 },
+    { x: 7, y: 7 },
+    { x: 8, y: 10 },
+    { x: 10, y: 8 },
+    { x: 20, y: 10 },
     { x: 10, y: 10 },
     { x: 8, y: 12 },
+    { x: 12, y: 12 },
     { x: 2, y: 20 },
+    { x: 20, y: 20 },
+    { x: 20, y: 17 },
+    { x: 16, y: 15 },
+    { x: 16, y: 17 },
 ];
-export let numEnemies = 5;
+export let numEnemies = 15;
 
 // Function to create and initialize enemies
 export function createEnemies(board) {

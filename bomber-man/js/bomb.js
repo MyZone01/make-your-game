@@ -44,7 +44,7 @@ export default class Bomb {
   }
 
   explodeInDirection(x, y) {
-    // affectPlayer(x, y);
+    affectPlayer(x, y);
     affectEnemies(x, y);
     return destroyWall(x - 1, y - 1); // Destroy a wall
   }

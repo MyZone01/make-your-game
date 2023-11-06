@@ -35,7 +35,6 @@
 
 Gardez à l'esprit que ce planning accéléré vous oblige à simplifier considérablement le premier niveau. Vous devrez vous concentrer sur les fonctionnalités de base pour avoir un prototype jouable en une semaine. Pour créer un jeu complet, vous auriez besoin de plus de temps pour développer plusieurs niveaux, des fonctionnalités avancées, et optimiser davantage les performances.
 
-Fix level difficulty. 
 Move player, enemies, bombs instances in the game file. 
 Make smooth movements 
 Make blasts for explosion
