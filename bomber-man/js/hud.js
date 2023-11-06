@@ -46,8 +46,8 @@ export class HUDManager {
     }
 
     updateScore(score) {
-        this.score = score;
-        this.scoreElement.innerText = `Score: ${score}`;
+        this.score += score;
+        this.scoreElement.innerText = `Score: ${this.score}`;
     }
 
     updateLives(lives) {

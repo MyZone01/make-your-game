@@ -103,7 +103,7 @@ class BomberManGame {
       } else {
         // Set a timer to explode the bomb after 3 seconds for non-manual bombs
         this.timerManager.addTimer(bomb.id, () => {
-          bomb.explode();
+          this.hUDManager.updateScore(bomb.explode());
           this.removeBomb(bomb);
         }, 3000);
         this.timerManager.startTimer(bomb.id);
@@ -136,8 +136,8 @@ class BomberManGame {
   detonateBomb() {
     this.addBomb = false;
     for (const bomb of this.bombs) {
-      if (bomb.manualBomb && !bomb.explosionTimer) {
-        bomb.explode();
+      if (bomb.manualBomb) {
+        this.hUDManager.updateScore(bomb.explode());
         this.removeBomb(bomb);
         return true;
       }

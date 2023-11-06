@@ -69,7 +69,6 @@ export function createGameBoard() {
             }
 
             cell.setAttribute('id', `c-${i + 1}-${j + 1}`)
-
             gameBoard.appendChild(cell);
 
             cell.style.gridRowStart = i + 1
@@ -94,10 +93,10 @@ export function destroyWall(x, y) {
                 cell.innerHTML = board[y][x];
             }
         }, 250);
-        return true;
+        return 1;
     } else if (board[y][x] == 'B') {
-        return false;
+        return 0;
     } else {
-        return true;
+        return 2;
     }
 }

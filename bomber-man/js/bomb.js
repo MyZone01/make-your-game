@@ -13,6 +13,7 @@ export default class Bomb {
     this.element.style.gridRowStart = this.y;
     this.element.style.gridColumnStart = this.x;
     this.manualBomb = false;
+    this.damageScore = 0;
   }
 
   explode() {
@@ -35,11 +36,17 @@ export default class Bomb {
         keepRightDirection = this.explodeInDirection(this.x + i, this.y); // Right
       }
     }
+    return this.damageScore
   }
 
   explodeInDirection(x, y) {
     affectPlayer(x, y);
-    affectEnemies(x, y);
-    return destroyWall(x - 1, y - 1); // Destroy a wall
+    this.damageScore += affectEnemies(x, y) * 50;
+    const isDestroyWall = destroyWall(x - 1, y - 1);
+    if (isDestroyWall === 1) {
+      this.damageScore += 10
+      console.log(this.damageScore);
+    }
+    return isDestroyWall !== 0
   }
 }
