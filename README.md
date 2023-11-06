@@ -6,12 +6,14 @@ A simple Bomberman game implemented in HTML, CSS, and JavaScript.
 
 ## TABLE OF CONTENTS
 
-- [Features](#features)
-- [Demo](#demo)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Authors](#authors)
+- [💣 BOMBERMAN GAME](#-bomberman-game)
+  - [TABLE OF CONTENTS](#table-of-contents)
+  - [FEATURES](#features)
+  - [DEMO](#demo)
+  - [GETTING STARTED](#getting-started)
+    - [PREREQUISITES](#prerequisites)
+    - [INSTALLATION](#installation)
+  - [AUTHORS](#authors)
 
 ## FEATURES
 
@@ -42,3 +44,10 @@ To play the game locally, you'll need a web browser.
 +  Serigne Saliou Mbacke MBAYE (@serignmbaye)
 +  Abdou Karim SOW (@abdouksow)
 +  Ivan Yossanguem (@iyossang)
+
+
+
+
+Les coordonnées des Grid CSS c'est de 1 à 21 alors que les coordonnées du tableu c'est [0-20]
+
+L'origine du grid 

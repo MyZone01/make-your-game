@@ -1,39 +1,40 @@
-import { isValidMove } from "./board.js";
+import { isValidMove, board } from "./board.js";
 import Bomb from "./bomb.js";
 
 export class Player {
   constructor() {
-    this.element = document.createElement('div');
+    this.element = document.createElement("div");
     this.position = { x: 2, y: 2 };
     this.element.style.gridRowStart = this.position.y;
     this.element.style.gridColumnStart = this.position.x;
-    this.element.classList.add('player');
+    this.element.classList.add("player");
     this.inputDirection = { x: 0, y: 0 };
     this.dead = false;
     this.addBomb = false;
     this.pause = false;
 
     this.bombs = [];
-    this.currentBombType = 'super'; // Initial bomb type
-    this.bombCount = 0; // Track the number of bombs placed
+    this.currentBombType = "simple"; // Initial bomb type
+    this.bombAmount = 1; // Track the number of bombs he can place at time
+    this.availableBombs = this.bombAmount;
 
-    window.addEventListener('keydown', (e) => {
-      if (this.pause) return
+    window.addEventListener("keydown", (e) => {
+      if (this.pause) return;
 
       switch (e.key) {
-        case 'ArrowUp':
+        case "ArrowUp":
           this.inputDirection = { x: 0, y: -1 };
           break;
-        case 'ArrowDown':
+        case "ArrowDown":
           this.inputDirection = { x: 0, y: 1 };
           break;
-        case 'ArrowLeft':
+        case "ArrowLeft":
           this.inputDirection = { x: -1, y: 0 };
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           this.inputDirection = { x: 1, y: 0 };
           break;
-        case ' ':
+        case " ":
           this.addBomb = true;
           break;
       }
@@ -41,12 +42,15 @@ export class Player {
   }
 
   placeBomb() {
-    this.addBomb = false
-    if (this.bombCount < 3) { // Check if the player can place a bomb
+    this.addBomb = false;
+    if (this.availableBombs > 0) {
+      // Check if the player can place a bomb
+
       const bomb = new Bomb(this.position.x, this.position.y, this.getBombRadius());
+      board[this.position.y - 1][this.position.x - 1] = "B";
       this.bombs.push(bomb);
-      this.bombCount++;
-      if (this.currentBombType === 'manual') {
+      this.availableBombs--;
+      if (this.currentBombType === "manual") {
         bomb.manualBomb = true; // Set the bomb as manual
       } else {
         // Set a timer to explode the bomb after 3 seconds for non-manual bombs
@@ -62,7 +66,7 @@ export class Player {
     if (this.pause) {
       for (const bomb of this.bombs) {
         if (bomb.explosionTimer) {
-          bomb.remainingTime -= (Date.now() - bomb.startTime);
+          bomb.remainingTime -= Date.now() - bomb.startTime;
           clearTimeout(bomb.explosionTimer);
           bomb.explosionTimer = null;
         }
@@ -82,9 +86,9 @@ export class Player {
 
   getBombRadius() {
     switch (this.currentBombType) {
-      case 'simple':
+      case "simple":
         return 1;
-      case 'super':
+      case "super":
         return 3;
       default:
         return 1;
@@ -92,12 +96,12 @@ export class Player {
   }
 
   detonateBomb() {
-    this.addBomb = false
+    this.addBomb = false;
     for (const bomb of this.bombs) {
       if (bomb.manualBomb && !bomb.explosionTimer) {
         bomb.explode();
         this.removeBomb(bomb);
-        return true
+        return true;
       }
     }
   }
@@ -110,7 +114,7 @@ export class Player {
     const index = this.bombs.indexOf(bomb);
     if (index !== -1) {
       this.bombs.splice(index, 1);
-      this.bombCount--;
+      this.availableBombs++;
     }
   }
 
