@@ -112,6 +112,28 @@ body {
     }
 }
 
+@keyframes rainbow {
+    0% {
+        color: black;
+    }
+
+    80% {
+        color: blue;
+    }
+
+    85% {
+        color: red;
+    }
+
+    95% {
+        color: yellow;
+    }
+
+    100% {
+        color: green;
+    }
+}
+
 .block {
     background-color: #0b0b8a;
     border: .25vmin solid #fff;
@@ -120,4 +142,14 @@ body {
 .wall {
     background-color: #3e3b3b;
     border: .25vmin solid #ffffff;
+}
+
+.power {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: 1.7rem;
+    animation: rainbow .5s ease-in-out infinite;
 }

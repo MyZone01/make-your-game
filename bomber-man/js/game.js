@@ -1,6 +1,7 @@
-import { createGameBoard, gameBoard } from "./board.js";
+import { createGameBoard, gameBoard, board } from "./board.js";
 import { createEnemies, enemies, moveEnemies } from "./enemy.js";
 import { player } from "./player.js";
+import { PowerUp } from './powerup.js'
 const SPEED = 20;
 let lastRenderTime = 0;
 let gameOver = false;
@@ -36,9 +37,10 @@ function gameLoop(currentTime) {
 window.requestAnimationFrame(gameLoop);
 
 function update() {
-  player.update();
-  moveEnemies();
-  checkDeath();
+  player.update()
+  moveEnemies()
+  checkDeath()
+  checkPowerUpCollision()
 }
 
 function checkDeath() {
@@ -62,3 +64,18 @@ window.addEventListener("keydown", (e) => {
     player.toggleBombTime();
   }
 });
+
+function checkPowerUpCollision() {
+  const playerX = player.position.x;
+  const playerY = player.position.y;
+  if (board[playerY - 1][playerX - 1] === 'V' || board[playerY - 1][playerX - 1] === 'B') return
+
+  // Apply the power-up's effect to the player
+  const powerUp = new PowerUp(board[playerY - 1][playerX - 1]);
+  powerUp.applyEffect(player);
+  board[playerY - 1][playerX - 1] = 'V';
+  const cell = document.getElementById(`c-${playerY}-${playerX}`);
+  if (cell) {
+    cell.remove()
+  }
+}

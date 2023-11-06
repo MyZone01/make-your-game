@@ -84,6 +84,12 @@ export class Player {
     }
   }
 
+  increaseBombCount() {
+    this.availableBombs++;
+    this.bombAmount++;
+    console.log(this.bombAmount);
+  }
+
   getBombRadius() {
     switch (this.currentBombType) {
       case "simple":
@@ -114,7 +120,7 @@ export class Player {
     const index = this.bombs.indexOf(bomb);
     if (index !== -1) {
       this.bombs.splice(index, 1);
-      this.availableBombs++;
+      this.availableBombs = this.bombAmount;
     }
   }
 

@@ -5,7 +5,7 @@ const GRID_SIZE = 16
 export const board = [
     // 'V' for void cell, 'B' for indestructible block, 'W' for destructible wall
     ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
-    ['B', 'V', 'W', 'W', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
+    ['B', 'V', 'M', 'W', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'B'],
     ['B', 'V', 'V', 'V', 'W', 'V', 'V', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'B'],
@@ -39,7 +39,7 @@ export function outsideGrid(position) {
 
 export function isValidMove(x, y) {
     const cellValue = board[y][x];
-    return cellValue === 'V';
+    return cellValue === 'V' || (isWall(x, y) && !document.getElementById(`c-${y + 1}-${x + 1}`).classList.contains("wall"));
 }
 
 export function isWall(x, y) {
@@ -47,7 +47,7 @@ export function isWall(x, y) {
         return false
     }
     const cellValue = board[y][x];
-    return cellValue === 'W';
+    return cellValue === 'W' || cellValue === 'S' || cellValue === 'M' || cellValue === 'X';
 }
 
 export function createGameBoard() {
@@ -59,7 +59,7 @@ export function createGameBoard() {
 
             if (board[i][j] === 'B') {
                 cell.classList.add('block');
-            } else if (board[i][j] === 'W') {
+            } else {
                 cell.classList.add('wall');
             }
 
@@ -79,8 +79,15 @@ export function destroyWall(x, y) {
         const cell = document.getElementById(`c-${y + 1}-${x + 1}`);
         cell.classList.add("explode");
         setTimeout(() => {
-            board[y][x] = 'V';
-            cell.remove();
+            if (board[y][x] === "W") {
+                board[y][x] = 'V';
+                cell.remove();
+            } else {
+                cell.classList.remove("explode");
+                cell.classList.remove("wall");
+                cell.classList.add("power");
+                cell.innerHTML = board[y][x];
+            }
         }, 250);
         return true;
     } else if (board[y][x] == 'B') {
