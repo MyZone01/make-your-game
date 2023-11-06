@@ -87,7 +87,10 @@ export class Player {
   increaseBombCount() {
     this.availableBombs++;
     this.bombAmount++;
-    console.log(this.bombAmount);
+  }
+
+  resetBombCount() {
+    this.bombAmount = 1
   }
 
   getBombRadius() {
