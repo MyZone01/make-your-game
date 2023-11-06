@@ -7,6 +7,7 @@ export class HUDManager {
         this.timer = 300; // 5 minutes in seconds
 
         this.callBackOnPause = callBackOnPause;
+        this.modal = document.getElementById('pause-menu');
         this.hudContainer = document.createElement('div');
         this.hudContainer.className = 'hud';
         document.body.appendChild(this.hudContainer);
@@ -22,6 +23,18 @@ export class HUDManager {
         this.hudContainer.appendChild(this.bombTypeElement);
         this.hudContainer.appendChild(this.bombsCountElement);
         this.hudContainer.appendChild(this.timerElement);
+
+        const resumeButton = this.modal.querySelector('button#resume');
+        const restartButton = this.modal.querySelector('button#restart');
+
+        restartButton.addEventListener('click', () => {
+            window.location.reload(); // Reload the page to restart the game.
+        });
+
+        resumeButton.addEventListener('click', () => {
+            this.modal.close();
+            this.callBackOnPause(); // You can call your onGamePause callback to resume the game.
+        });
 
     }
 
@@ -64,31 +77,20 @@ export class HUDManager {
     }
 
     showPauseMenu() {
-        const modal = document.getElementById('pause-menu');
-
-        const resumeButton = document.createElement('button');
-        resumeButton.innerText = 'Resume';
-        resumeButton.addEventListener('click', () => {
-            modal.close();
-            this.callBackOnPause(); // You can call your onGamePause callback to resume the game.
-        });
-
-        const restartButton = document.createElement('button');
-        restartButton.innerText = 'Restart';
-        restartButton.addEventListener('click', () => {
-            window.location.reload(); // Reload the page to restart the game.
-        });
-
-        modal.appendChild(resumeButton);
-        modal.appendChild(restartButton);
-
-        modal.showModal();
+        this.modal.showModal();
     }
 
     hidePauseMenu() {
-        const modal = document.querySelector('.pause-menu');
-        if (modal) {
-            modal.close();
+        if (this.modal) {
+            this.modal.close();
+        }
+    }
+
+    togglePauseResume(gamePause) {
+        if (gamePause) {
+            this.showPauseMenu();
+        } else {
+            this.hidePauseMenu();
         }
     }
 }

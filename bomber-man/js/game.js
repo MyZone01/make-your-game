@@ -39,6 +39,7 @@ class BomberManGame {
   onGamePause() {
     this.gamePause = !this.gamePause;
     this.timerManager.togglePauseResume(this.gamePause);
+    this.hUDManager.togglePauseResume(this.gamePause);
   }
 
   onControlPress(e) {
