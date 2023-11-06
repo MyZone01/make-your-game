@@ -1,7 +1,7 @@
 export class PowerUp {
     constructor(type) {
         this.type = type;
-        this.duration = 5; // in second
+        this.duration = 15; // in second
     }
 
     applyEffect(player) {

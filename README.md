@@ -44,10 +44,3 @@ To play the game locally, you'll need a web browser.
 +  Serigne Saliou Mbacke MBAYE (@serignmbaye)
 +  Abdou Karim SOW (@abdouksow)
 +  Ivan Yossanguem (@iyossang)
-
-
-
-
-Les coordonnées des Grid CSS c'est de 1 à 21 alors que les coordonnées du tableu c'est [0-20]
-
-L'origine du grid 
