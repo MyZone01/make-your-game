@@ -1,4 +1,4 @@
-import { isValidMove, randomGridPosition } from "./board.js";
+import { isValidMove } from "./board.js";
 
 class Enemy {
     constructor({ x, y }, index) {

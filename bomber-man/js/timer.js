@@ -72,8 +72,7 @@ export class TimerManager {
 
     // When the game is paused:
     pauseTimers() {
-        timerManager.timers.forEach((timer) => {
-            console.log(timer);
+        this.timers.forEach((timer) => {
             if (!timer.isPaused) {
                 this.pauseTimer(timer);
             }
@@ -82,7 +81,7 @@ export class TimerManager {
 
     // When the game is resumed:
     resumeTimers() {
-        timerManager.timers.forEach((timer) => {
+        this.timers.forEach((timer) => {
             if (timer.isPaused) {
                 this.resumeTimer(timer);
             }

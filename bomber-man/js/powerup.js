@@ -19,11 +19,13 @@ export class PowerUp {
             timerManager.addTimer(this.id, () => {
                 player.changeBombType('simple');
             }, this.duration * 1000);
+            timerManager.startTimer(this.id);
         } else if (this.type === 'M') {
             player.changeBombType('manual');
             timerManager.addTimer(this.id, () => {
                 player.changeBombType('simple');
             }, this.duration * 1000);
+            timerManager.startTimer(this.id);
         }
     }
 }
