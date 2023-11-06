@@ -5,7 +5,7 @@ const GRID_SIZE = 16
 export const board = [
     // 'V' for void cell, 'B' for indestructible block, 'W' for destructible wall
     ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
-    ['B', 'V', 'M', 'W', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
+    ['B', 'V', 'W', 'W', 'W', 'V', 'W', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'B'],
     ['B', 'V', 'V', 'V', 'W', 'V', 'V', 'V', 'B', 'V', 'W', 'V', 'W', 'V', 'V', 'B'],
     ['B', 'V', 'B', 'W', 'B', 'W', 'B', 'W', 'V', 'W', 'B', 'W', 'B', 'W', 'B', 'B'],
@@ -61,6 +61,11 @@ export function createGameBoard() {
                 cell.classList.add('block');
             } else {
                 cell.classList.add('wall');
+                if (Math.random() < 0.4) {
+                    const powerUpTypes = ['X', 'S', 'M'];
+                    const randomPowerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+                    board[i][j] = randomPowerUp;
+                }
             }
 
             cell.setAttribute('id', `c-${i + 1}-${j + 1}`)
