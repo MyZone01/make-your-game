@@ -1,31 +1,29 @@
-import { timerManager } from "./timer.js";
-
 export class PowerUp {
     constructor(type) {
         this.id = Date.now();
         this.type = type;
-        this.duration = 15; // in seconds
+        this.duration = 15 * 1000; // in seconds
     }
 
-    applyEffect(player) {
+    applyEffect(game) {
         if (this.type === 'X') {
-            player.increaseBombCount();
-            timerManager.addTimer(this.id, () => {
-                player.resetBombCount();
-            }, this.duration * 1000);
-            timerManager.startTimer(this.id);
+            game.increaseBombCount();
+            game.timerManager.addTimer(this.id, () => {
+                game.resetBombCount();
+            }, this.duration);
+            game.timerManager.startTimer(this.id);
         } else if (this.type === 'S') {
-            player.changeBombType('super');
-            timerManager.addTimer(this.id, () => {
-                player.changeBombType('simple');
-            }, this.duration * 1000);
-            timerManager.startTimer(this.id);
+            game.changeBombType('super');
+            game.timerManager.addTimer(this.id, () => {
+                game.changeBombType('simple');
+            }, this.duration);
+            game.timerManager.startTimer(this.id);
         } else if (this.type === 'M') {
-            player.changeBombType('manual');
-            timerManager.addTimer(this.id, () => {
-                player.changeBombType('simple');
-            }, this.duration * 1000);
-            timerManager.startTimer(this.id);
+            game.changeBombType('manual');
+            game.timerManager.addTimer(this.id, () => {
+                game.changeBombType('simple');
+            }, this.duration);
+            game.timerManager.startTimer(this.id);
         }
     }
 }

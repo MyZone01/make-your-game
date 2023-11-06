@@ -1,25 +1,65 @@
 import { createGameBoard, gameBoard, board } from "./board.js";
+import Bomb from "./bomb.js";
 import { createEnemies, enemies, moveEnemies } from "./enemy.js";
-import { player } from "./player.js";
+import { KeyBoardHandler } from "./key.js";
+import { Player } from "./player.js";
 import { PowerUp } from './powerup.js';
-import { timerManager } from "./timer.js";
+import { TimerManager } from "./timer.js";
 
 const SPEED = 20;
 
 class BomberManGame {
   constructor() {
+    this.player = new Player();
+    this.timerManager = new TimerManager();
+
     this.lastRenderTime = 0;
     this.gameOver = false;
     this.gamePause = false;
+
+    this.addBomb = false;
+
+    this.bombs = [];
+    this.currentBombType = "simple"; // Initial bomb type
+    this.bombAmount = 1; // Track the number of bombs he can place at time
+    this.availableBombs = this.bombAmount;
   }
 
   run() {
     createGameBoard();
     createEnemies(gameBoard);
-    gameBoard.appendChild(player.element);
+    gameBoard.appendChild(this.player.element);
 
+    this.keyBoardHandler = new KeyBoardHandler(this.onControlPress.bind(this), this.onGamePause.bind(this));
     this.startGameLoop();
-    this.addEventListeners();
+  }
+
+  onGamePause() {
+    this.gamePause = !this.gamePause;
+    this.timerManager.togglePauseResume(this.gamePause);
+  }
+
+  onControlPress(e) {
+    if (this.gamePause) return;
+
+    // Handle player controls
+    switch (e.key) {
+      case "ArrowUp":
+        this.player.inputDirection = { x: 0, y: -1 };
+        break;
+      case "ArrowDown":
+        this.player.inputDirection = { x: 0, y: 1 };
+        break;
+      case "ArrowLeft":
+        this.player.inputDirection = { x: -1, y: 0 };
+        break;
+      case "ArrowRight":
+        this.player.inputDirection = { x: 1, y: 0 };
+        break;
+      case " ":
+        this.addBomb = true;
+        break;
+    }
   }
 
   startGameLoop() {
@@ -44,42 +84,100 @@ class BomberManGame {
     window.requestAnimationFrame(gameLoop);
   }
 
+  placeBomb() {
+    this.addBomb = false;
+    if (this.availableBombs > 0) {
+      // Check if the player can place a bomb
+
+      const bomb = new Bomb(this.player.position.x, this.player.position.y, this.getBombRadius());
+      board[this.player.position.y - 1][this.player.position.x - 1] = "B";
+      this.bombs.push(bomb);
+      gameBoard.appendChild(bomb.element);
+      this.availableBombs--;
+      if (this.currentBombType === "manual") {
+        bomb.manualBomb = true; // Set the bomb as manual
+      } else {
+        // Set a timer to explode the bomb after 3 seconds for non-manual bombs
+        this.timerManager.addTimer(bomb.id, () => {
+          bomb.explode();
+          this.removeBomb(bomb);
+        }, 3000);
+        this.timerManager.startTimer(bomb.id);
+      }
+    }
+  }
+
+  increaseBombCount() {
+    this.availableBombs++;
+    this.bombAmount++;
+  }
+
+  resetBombCount() {
+    this.bombAmount = 1
+  }
+
+  getBombRadius() {
+    switch (this.currentBombType) {
+      case "simple":
+        return 1;
+      case "super":
+        return 3;
+      default:
+        return 1;
+    }
+  }
+
+  detonateBomb() {
+    this.addBomb = false;
+    for (const bomb of this.bombs) {
+      if (bomb.manualBomb && !bomb.explosionTimer) {
+        bomb.explode();
+        this.removeBomb(bomb);
+        return true;
+      }
+    }
+  }
+
+  changeBombType(bombType) {
+    this.currentBombType = bombType;
+  }
+
+  removeBomb(bomb) {
+    const index = this.bombs.indexOf(bomb);
+    if (index !== -1) {
+      this.bombs.splice(index, 1);
+      board[bomb.y - 1][bomb.x - 1] = "V";
+      gameBoard.removeChild(bomb.element);
+      this.availableBombs = this.bombAmount;
+    }
+  }
+
   update() {
-    player.update();
+    if (this.addBomb) {
+      if (!this.detonateBomb()) this.placeBomb();
+    }
+    this.player.update();
     moveEnemies();
-    this.checkDeath();
     this.checkPowerUpCollision();
+    this.checkDeath();
   }
 
   checkDeath() {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
-      if (enemy.x === player.position.x && enemy.y === player.position.y) {
+      if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
         this.gameOver = true;
       }
     }
-    if (player.dead) {
-      this.gameOver = true;
-    }
-  }
-
-  addEventListeners() {
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "p") {
-        this.gamePause = !this.gamePause;
-        player.pause = this.gamePause;
-        timerManager.togglePauseResume(this.gamePause);
-      }
-    });
   }
 
   checkPowerUpCollision() {
-    const playerX = player.position.x;
-    const playerY = player.position.y;
+    const playerX = this.player.position.x;
+    const playerY = this.player.position.y;
     if (board[playerY - 1][playerX - 1] === 'V' || board[playerY - 1][playerX - 1] === 'B') return;
 
     const powerUp = new PowerUp(board[playerY - 1][playerX - 1]);
-    powerUp.applyEffect(player);
+    powerUp.applyEffect(this);
     board[playerY - 1][playerX - 1] = 'V';
     const cell = document.getElementById(`c-${playerY}-${playerX}`);
     if (cell) {
@@ -90,3 +188,10 @@ class BomberManGame {
 
 const game = new BomberManGame();
 game.run();
+
+export function affectPlayer(x, y) {
+  if (game.player.position.x === x && game.player.position.y === y) {
+    game.player.element.remove();
+    game.gameOver = true;
+  }
+}

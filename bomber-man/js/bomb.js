@@ -1,7 +1,6 @@
-import { destroyWall, gameBoard } from "./board.js";
+import { destroyWall } from "./board.js";
 import { affectEnemies } from "./enemy.js";
-import { affectPlayer } from "./player.js";
-import { board } from "./board.js";
+import { affectPlayer } from "./game.js";
 
 export default class Bomb {
   constructor(x, y, explosionRadius) {
@@ -13,7 +12,6 @@ export default class Bomb {
     this.element.classList.add("bomb");
     this.element.style.gridRowStart = this.y;
     this.element.style.gridColumnStart = this.x;
-    gameBoard.appendChild(this.element);
     this.manualBomb = false;
   }
 
@@ -37,8 +35,6 @@ export default class Bomb {
         keepRightDirection = this.explodeInDirection(this.x + i, this.y); // Right
       }
     }
-    board[this.y - 1][this.x - 1] = "V";
-    gameBoard.removeChild(this.element);
   }
 
   explodeInDirection(x, y) {
