@@ -126,15 +126,16 @@ export class Player {
 
     const newPositionX = this.position.x + this.inputDirection.x;
     const newPositionY = this.position.y + this.inputDirection.y;
-    this.inputDirection = { x: 0, y: 0 };
-
+    
     if (isValidMove(newPositionX - 1, newPositionY - 1)) {
       this.position.x = newPositionX;
       this.position.y = newPositionY;
 
-      this.element.style.gridRowStart = this.position.y;
-      this.element.style.gridColumnStart = this.position.x;
+        this.element.style.gridRowStart = this.position.y;
+        this.element.style.gridColumnStart = this.position.x;      
     }
+
+    this.inputDirection = { x: 0, y: 0 };
   }
 }
 
