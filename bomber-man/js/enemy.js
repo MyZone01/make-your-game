@@ -127,7 +127,7 @@ export function moveEnemies() {
 }
 
 export function affectEnemies(x, y) {
-    const numberOfDeaths = 0;
+    let numberOfDeaths = 0;
     for (let i = 0; i < numEnemies; i++) {
         const enemy = enemies[i];
         if (enemy.x === x && enemy.y === y) {
