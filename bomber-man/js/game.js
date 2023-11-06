@@ -1,6 +1,7 @@
 import { createGameBoard, gameBoard, board } from "./board.js";
 import Bomb from "./bomb.js";
 import { createEnemies, enemies, moveEnemies } from "./enemy.js";
+import { HUDManager } from "./hud.js";
 import { KeyBoardHandler } from "./key.js";
 import { Player } from "./player.js";
 import { PowerUp } from './powerup.js';
@@ -11,7 +12,6 @@ const SPEED = 20;
 class BomberManGame {
   constructor() {
     this.player = new Player();
-    this.timerManager = new TimerManager();
 
     this.lastRenderTime = 0;
     this.gameOver = false;
@@ -31,6 +31,8 @@ class BomberManGame {
     gameBoard.appendChild(this.player.element);
 
     this.keyBoardHandler = new KeyBoardHandler(this.onControlPress.bind(this), this.onGamePause.bind(this));
+    this.hUDManager = new HUDManager(this.onGamePause.bind(this));
+    this.timerManager = new TimerManager(this.hUDManager);
     this.startGameLoop();
   }
 
@@ -94,6 +96,7 @@ class BomberManGame {
       this.bombs.push(bomb);
       gameBoard.appendChild(bomb.element);
       this.availableBombs--;
+      this.hUDManager.updateBombsCount(this.availableBombs);
       if (this.currentBombType === "manual") {
         bomb.manualBomb = true; // Set the bomb as manual
       } else {
@@ -109,11 +112,13 @@ class BomberManGame {
 
   increaseBombCount() {
     this.availableBombs++;
+    this.hUDManager.updateBombsCount(this.availableBombs);
     this.bombAmount++;
   }
 
   resetBombCount() {
     this.bombAmount = 1
+    this.hUDManager.updateBombsCount(this.availableBombs);
   }
 
   getBombRadius() {
@@ -139,6 +144,7 @@ class BomberManGame {
   }
 
   changeBombType(bombType) {
+    this.hUDManager.updateBombType(bombType.toUpperCase());
     this.currentBombType = bombType;
   }
 
@@ -149,6 +155,7 @@ class BomberManGame {
       board[bomb.y - 1][bomb.x - 1] = "V";
       gameBoard.removeChild(bomb.element);
       this.availableBombs = this.bombAmount;
+      this.hUDManager.updateBombsCount(this.availableBombs);
     }
   }
 
@@ -168,6 +175,9 @@ class BomberManGame {
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
         this.gameOver = true;
       }
+    }
+    if (this.timerManager.timerValue === 0) {
+        this.gameOver = true
     }
   }
 

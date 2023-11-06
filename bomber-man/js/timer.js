@@ -1,6 +1,10 @@
 export class TimerManager {
-    constructor() {
+    constructor(hud) {
+        this.hud = hud
         this.timers = new Map(); // Use a Map to store timers
+        this.timerInterval = setInterval(() => {
+            this.hud.decrementTimer();
+        }, 1000);
     }
 
     // Add a timer to the manager
@@ -77,6 +81,7 @@ export class TimerManager {
                 this.pauseTimer(timer);
             }
         });
+        clearInterval(this.timerInterval);
     }
 
     // When the game is resumed:
@@ -86,14 +91,17 @@ export class TimerManager {
                 this.resumeTimer(timer);
             }
         });
+        this.timerInterval = setInterval(() => {
+            this.hud.decrementTimer();
+        }, 1000);
     }
 
     //toggle pause/resume
     togglePauseResume(gamePause) {
-      if (gamePause) {
-        this.pauseTimers();
-      } else {
-        this.resumeTimers();
-      }
+        if (gamePause) {
+            this.pauseTimers();
+        } else {
+            this.resumeTimers();
+        }
     }
 }
