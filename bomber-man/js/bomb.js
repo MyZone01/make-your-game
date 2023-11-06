@@ -5,18 +5,16 @@ import { board } from "./board.js";
 
 export default class Bomb {
   constructor(x, y, explosionRadius) {
+    this.id = Date.now();
     this.x = x;
     this.y = y;
     this.explosionRadius = explosionRadius;
-    this.explosionTimer = null;
     this.element = document.createElement("div");
     this.element.classList.add("bomb");
     this.element.style.gridRowStart = this.y;
     this.element.style.gridColumnStart = this.x;
     gameBoard.appendChild(this.element);
     this.manualBomb = false;
-    this.remainingTime = 3000;
-    this.startTime = Date.now();
   }
 
   explode() {

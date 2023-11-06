@@ -1,5 +1,6 @@
 import { isValidMove, board } from "./board.js";
 import Bomb from "./bomb.js";
+import { timerManager } from "./timer.js";
 
 export class Player {
   constructor() {
@@ -54,32 +55,11 @@ export class Player {
         bomb.manualBomb = true; // Set the bomb as manual
       } else {
         // Set a timer to explode the bomb after 3 seconds for non-manual bombs
-        bomb.explosionTimer = setTimeout(() => {
+        timerManager.addTimer(bomb.id, () => {
           bomb.explode();
           this.removeBomb(bomb);
-        }, bomb.remainingTime);
-      }
-    }
-  }
-
-  toggleBombTime() {
-    if (this.pause) {
-      for (const bomb of this.bombs) {
-        if (bomb.explosionTimer) {
-          bomb.remainingTime -= Date.now() - bomb.startTime;
-          clearTimeout(bomb.explosionTimer);
-          bomb.explosionTimer = null;
-        }
-      }
-    } else {
-      for (const bomb of this.bombs) {
-        if (!bomb.explosionTimer) {
-          bomb.startTime = Date.now();
-          bomb.explosionTimer = setTimeout(() => {
-            bomb.explode();
-            this.removeBomb(bomb);
-          }, bomb.remainingTime);
-        }
+        }, 3000);
+        timerManager.startTimer(bomb.id);
       }
     }
   }

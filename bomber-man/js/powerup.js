@@ -1,24 +1,27 @@
+import { timerManager } from "./timer.js";
+
 export class PowerUp {
     constructor(type) {
+        this.id = Date.now();
         this.type = type;
-        this.duration = 15; // in second
+        this.duration = 15; // in seconds
     }
 
     applyEffect(player) {
         if (this.type === 'X') {
             player.increaseBombCount();
-            // TODO: Use the same logic in bomb timer to pause the timer when the game is paused
-            setTimeout(() => {
+            timerManager.addTimer(this.id, () => {
                 player.resetBombCount();
             }, this.duration * 1000);
+            timerManager.startTimer(this.id);
         } else if (this.type === 'S') {
             player.changeBombType('super');
-            setTimeout(() => {
+            timerManager.addTimer(this.id, () => {
                 player.changeBombType('simple');
             }, this.duration * 1000);
         } else if (this.type === 'M') {
             player.changeBombType('manual');
-            setTimeout(() => {
+            timerManager.addTimer(this.id, () => {
                 player.changeBombType('simple');
             }, this.duration * 1000);
         }
