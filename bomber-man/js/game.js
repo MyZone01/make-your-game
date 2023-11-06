@@ -1,83 +1,92 @@
 import { createGameBoard, gameBoard, board } from "./board.js";
 import { createEnemies, enemies, moveEnemies } from "./enemy.js";
 import { player } from "./player.js";
-import { PowerUp } from './powerup.js'
+import { PowerUp } from './powerup.js';
 import { timerManager } from "./timer.js";
 
 const SPEED = 20;
-let lastRenderTime = 0;
-let gameOver = false;
-let gamePause = false;
 
-// Call the function to create the game board
-createGameBoard();
+class BomberManGame {
+  constructor() {
+    this.lastRenderTime = 0;
+    this.gameOver = false;
+    this.gamePause = false;
+  }
 
-// Call the function to create and initialize enemies
-createEnemies(gameBoard);
+  run() {
+    createGameBoard();
+    createEnemies(gameBoard);
+    gameBoard.appendChild(player.element);
 
-// Create the player
-gameBoard.appendChild(player.element);
+    this.startGameLoop();
+    this.addEventListeners();
+  }
 
-function gameLoop(currentTime) {
-  if (gameOver) {
-    if (confirm("You lost. Press ok to restart.")) {
-      window.location = "/bomber-man/";
+  startGameLoop() {
+    const gameLoop = (currentTime) => {
+      if (this.gameOver) {
+        if (confirm("You lost. Press ok to restart.")) {
+          window.location = "/bomber-man/";
+        }
+        return;
+      }
+
+      window.requestAnimationFrame(gameLoop);
+      const secondsSinceLastRender = (currentTime - this.lastRenderTime) / 1000;
+      if (secondsSinceLastRender < 1 / SPEED) return;
+
+      this.lastRenderTime = currentTime;
+      if (!this.gamePause) {
+        this.update();
+      }
+    };
+
+    window.requestAnimationFrame(gameLoop);
+  }
+
+  update() {
+    player.update();
+    moveEnemies();
+    this.checkDeath();
+    this.checkPowerUpCollision();
+  }
+
+  checkDeath() {
+    for (let i = 0; i < enemies.length; i++) {
+      const enemy = enemies[i];
+      if (enemy.x === player.position.x && enemy.y === player.position.y) {
+        this.gameOver = true;
+      }
     }
-    return;
-  }
-
-  window.requestAnimationFrame(gameLoop);
-  const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000;
-  if (secondsSinceLastRender < 1 / SPEED) return;
-
-  lastRenderTime = currentTime;
-  if (!gamePause) {
-    update();
-  }
-}
-
-window.requestAnimationFrame(gameLoop);
-
-function update() {
-  player.update()
-  moveEnemies()
-  checkDeath()
-  checkPowerUpCollision()
-}
-
-function checkDeath() {
-  // Check if player is death
-  for (let i = 0; i < enemies.length; i++) {
-    const enemy = enemies[i];
-    if (enemy.x === player.position.x && enemy.y === player.position.y) {
-      gameOver = true;
+    if (player.dead) {
+      this.gameOver = true;
     }
   }
-  if (player.dead) {
-    gameOver = true;
+
+  addEventListeners() {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "p") {
+        this.gamePause = !this.gamePause;
+        player.pause = this.gamePause;
+        timerManager.togglePauseResume(this.gamePause);
+      }
+    });
   }
-  // gameOver = false;
-}
 
-window.addEventListener("keydown", (e) => {
-  if (e.key === "p") {
-    gamePause = !gamePause;
-    player.pause = gamePause;
-    timerManager.togglePauseResume(gamePause)
-  }
-});
+  checkPowerUpCollision() {
+    const playerX = player.position.x;
+    const playerY = player.position.y;
+    if (board[playerY - 1][playerX - 1] === 'V' || board[playerY - 1][playerX - 1] === 'B') return;
 
-function checkPowerUpCollision() {
-  const playerX = player.position.x;
-  const playerY = player.position.y;
-  if (board[playerY - 1][playerX - 1] === 'V' || board[playerY - 1][playerX - 1] === 'B') return
-
-  // Apply the power-up's effect to the player
-  const powerUp = new PowerUp(board[playerY - 1][playerX - 1]);
-  powerUp.applyEffect(player);
-  board[playerY - 1][playerX - 1] = 'V';
-  const cell = document.getElementById(`c-${playerY}-${playerX}`);
-  if (cell) {
-    cell.remove()
+    const powerUp = new PowerUp(board[playerY - 1][playerX - 1]);
+    powerUp.applyEffect(player);
+    board[playerY - 1][playerX - 1] = 'V';
+    const cell = document.getElementById(`c-${playerY}-${playerX}`);
+    if (cell) {
+      cell.remove();
+    }
   }
 }
+
+const game = new BomberManGame();
+game.run();
