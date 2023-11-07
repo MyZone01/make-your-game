@@ -150,14 +150,16 @@ class BomberManGame {
   }
 
   removeBomb(bomb) {
-    const index = this.bombs.indexOf(bomb);
-    if (index !== -1) {
-      this.bombs.splice(index, 1);
-      board[bomb.y - 1][bomb.x - 1] = "V";
-      gameBoard.removeChild(bomb.element);
-      this.availableBombs = this.bombAmount;
-      this.hUDManager.updateBombsCount(this.availableBombs);
-    }
+    setTimeout(() => {
+      const index = this.bombs.indexOf(bomb);
+      if (index !== -1) {
+        this.bombs.splice(index, 1);
+        board[bomb.y - 1][bomb.x - 1] = "V";
+        // gameBoard.removeChild(bomb.element);
+        this.availableBombs = this.bombAmount;
+        this.hUDManager.updateBombsCount(this.availableBombs);
+      }
+    }, 250);
   }
 
   update() {
@@ -202,7 +204,7 @@ game.run();
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
-    game.player.element.remove();
-    game.gameOver = true;
+    // game.player.element.remove();
+    // game.gameOver = true;
   }
 }

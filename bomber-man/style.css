@@ -120,6 +120,7 @@ body {
 }
 
 .bomb {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -132,9 +133,17 @@ body {
     content: "💣";
 }
 
-
 .explode {
     animation: wiggle .25s ease-in-out forwards;
+}
+
+.blast {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: orangered;
+    transition: all .25s ease-in-out;
 }
 
 /* Bomb animation */

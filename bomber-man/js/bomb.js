@@ -14,10 +14,14 @@ export default class Bomb {
     this.element.style.gridColumnStart = this.x;
     this.manualBomb = false;
     this.damageScore = 0;
+    this.hBlast = document.createElement("div")
+    this.hBlast.classList.add("blast")
+    this.element.appendChild(this.hBlast)
   }
 
   explode() {
     this.element.classList.add("explosion");
+
     let keepUpDirection = true;
     let keepDownDirection = true;
     let keepLeftDirection = true;
@@ -28,6 +32,9 @@ export default class Bomb {
       }
       if (keepDownDirection) {
         keepDownDirection = this.explodeInDirection(this.x, this.y + i); // Down
+        if (keepDownDirection) {
+          this.hBlast.style.bottom = "-100%"
+        }
       }
       if (keepLeftDirection) {
         keepLeftDirection = this.explodeInDirection(this.x - i, this.y); // Left
@@ -37,6 +44,10 @@ export default class Bomb {
       }
     }
     return this.damageScore
+  }
+
+  expandBlastHorizontalBlast() {
+
   }
 
   explodeInDirection(x, y) {
