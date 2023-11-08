@@ -180,7 +180,7 @@ class BomberManGame {
         this.gameOver = true;
       }
     }
-    if (this.timerManager.timerValue === 0) {
+    if (this.hUDManager.timer === 0) {
         this.gameOver = true
     }
   }

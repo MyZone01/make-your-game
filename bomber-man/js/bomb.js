@@ -68,7 +68,6 @@ export default class Bomb {
     const isDestroyWall = destroyWall(x - 1, y - 1);
     if (isDestroyWall === 1) {
       this.damageScore += 10
-      console.log(this.damageScore);
     }
     return isDestroyWall !== 0
   }
