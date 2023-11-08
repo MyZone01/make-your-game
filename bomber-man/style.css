@@ -135,14 +135,20 @@ body {
 
 .explode {
     animation: wiggle .25s ease-in-out forwards;
+    animation: firing .25s ease-in-out forwards;
 }
 
 .blast {
     position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    background-color: orangered;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    border-radius: 2.5rem;
+    filter: blur(10px);
+    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(255, 136, 0, 0.95) 74%);
     transition: all .25s ease-in-out;
 }
 
@@ -168,7 +174,6 @@ body {
 
     85% {
         transform: rotate(5deg);
-        background-color: #661212;
     }
 
     95% {
@@ -177,6 +182,15 @@ body {
 
     100% {
         transform: rotate(0deg);
+    }
+}
+
+@keyframes firing {
+    85% {
+        background-color: #661212;
+    }
+
+    100% {
         background-color: #000;
     }
 }

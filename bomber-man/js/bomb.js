@@ -14,13 +14,16 @@ export default class Bomb {
     this.element.style.gridColumnStart = this.x;
     this.manualBomb = false;
     this.damageScore = 0;
-    this.hBlast = document.createElement("div")
-    this.hBlast.classList.add("blast")
-    this.element.appendChild(this.hBlast)
+    this.verticalBlast = document.createElement("div")
+    this.verticalBlast.classList.add("blast")
+    this.element.appendChild(this.verticalBlast)
+    this.horizontalBlast = document.createElement("div")
+    this.horizontalBlast.classList.add("blast")
+    this.element.appendChild(this.horizontalBlast)
   }
 
   explode() {
-    this.element.classList.add("explosion");
+    this.element.style.animation = "none"
 
     let keepUpDirection = true;
     let keepDownDirection = true;
@@ -29,25 +32,34 @@ export default class Bomb {
     for (let i = 1; i <= this.explosionRadius; i++) {
       if (keepUpDirection) {
         keepUpDirection = this.explodeInDirection(this.x, this.y - i); // Up
+        if (keepUpDirection) {
+          this.verticalBlast.style.opacity = "1"
+          this.verticalBlast.style.top = `-${i * 100}%`
+        }
       }
       if (keepDownDirection) {
         keepDownDirection = this.explodeInDirection(this.x, this.y + i); // Down
         if (keepDownDirection) {
-          this.hBlast.style.bottom = "-100%"
+          this.verticalBlast.style.opacity = "1"
+          this.verticalBlast.style.bottom = `-${i * 100}%`
         }
       }
       if (keepLeftDirection) {
         keepLeftDirection = this.explodeInDirection(this.x - i, this.y); // Left
+        if (keepLeftDirection) {
+          this.horizontalBlast.style.opacity = "1"
+          this.horizontalBlast.style.left = `-${i * 100}%`
+        }
       }
       if (keepRightDirection) {
         keepRightDirection = this.explodeInDirection(this.x + i, this.y); // Right
+        if (keepRightDirection) {
+          this.horizontalBlast.style.opacity = "1"
+          this.horizontalBlast.style.right = `-${i * 100}%`
+        }
       }
     }
     return this.damageScore
-  }
-
-  expandBlastHorizontalBlast() {
-
   }
 
   explodeInDirection(x, y) {

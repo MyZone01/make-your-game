@@ -155,11 +155,11 @@ class BomberManGame {
       if (index !== -1) {
         this.bombs.splice(index, 1);
         board[bomb.y - 1][bomb.x - 1] = "V";
-        // gameBoard.removeChild(bomb.element);
+        gameBoard.removeChild(bomb.element);
         this.availableBombs = this.bombAmount;
         this.hUDManager.updateBombsCount(this.availableBombs);
       }
-    }, 250);
+    }, 255);
   }
 
   update() {
@@ -169,6 +169,7 @@ class BomberManGame {
     this.player.update();
     moveEnemies();
     this.checkPowerUpCollision();
+    this.checkVictory();
     this.checkDeath();
   }
 
@@ -182,6 +183,10 @@ class BomberManGame {
     if (this.timerManager.timerValue === 0) {
         this.gameOver = true
     }
+  }
+
+  checkVictory() {
+    this.gameOver = enemies.length === 0;
   }
 
   checkPowerUpCollision() {
@@ -204,7 +209,7 @@ game.run();
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
-    // game.player.element.remove();
-    // game.gameOver = true;
+    game.player.element.remove();
+    game.gameOver = true;
   }
 }
