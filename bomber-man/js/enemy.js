@@ -138,12 +138,12 @@ export function affectEnemies(x, y) {
         const enemy = enemies[i];
         if (enemy.x === x && enemy.y === y) {
             enemy.element.style.animation = "explode .25s ease-in-out forwards";
+            enemies.splice(i, 1);
+            numberOfDeaths++;
+            numEnemies--;
             setTimeout(() => {
                 enemy.element.remove();
-                enemies.splice(i, 1);
-                numEnemies--;
-            }, 255);
-            numberOfDeaths++;
+            }, 250);
         }
     }
     return numberOfDeaths
