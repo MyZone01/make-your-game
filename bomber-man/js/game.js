@@ -209,7 +209,10 @@ game.run();
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
-    game.player.element.remove();
-    game.gameOver = true;
+    game.player.element.style.animation = "explode .25s ease-in-out forwards";
+    setTimeout(() => {
+      game.player.element.remove();
+      game.gameOver = true;
+    }, 255);
   }
 }

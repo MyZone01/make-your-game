@@ -131,10 +131,13 @@ export function affectEnemies(x, y) {
     for (let i = 0; i < numEnemies; i++) {
         const enemy = enemies[i];
         if (enemy.x === x && enemy.y === y) {
-            enemy.element.remove();
-            enemies.splice(i, 1);
+            enemy.element.style.animation = "explode .25s ease-in-out forwards";
+            setTimeout(() => {
+                enemy.element.remove();
+                enemies.splice(i, 1);
+                numEnemies--;
+            }, 255);
             numberOfDeaths++;
-            numEnemies--;
         }
     }
     return numberOfDeaths
