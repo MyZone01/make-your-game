@@ -135,7 +135,6 @@ body {
 
 .explode {
     animation: wiggle .25s ease-in-out forwards;
-    animation: firing .25s ease-in-out forwards;
 }
 
 .blast {
@@ -174,6 +173,7 @@ body {
 
     85% {
         transform: rotate(5deg);
+        background-color: #661212;
     }
 
     95% {
@@ -182,15 +182,6 @@ body {
 
     100% {
         transform: rotate(0deg);
-    }
-}
-
-@keyframes firing {
-    85% {
-        background-color: #661212;
-    }
-
-    100% {
         background-color: #000;
     }
 }
