@@ -20,6 +20,7 @@ class BomberManGame {
     this.addBomb = false;
 
     this.bombs = [];
+    this.gameOverMessage = "";
     this.currentBombType = "simple"; // Initial bomb type
     this.bombAmount = 1; // Track the number of bombs he can place at time
     this.availableBombs = this.bombAmount;
@@ -68,7 +69,7 @@ class BomberManGame {
   startGameLoop() {
     const gameLoop = (currentTime) => {
       if (this.gameOver) {
-        if (confirm("You lost. Press ok to restart.")) {
+        if (confirm(this.gameOverMessage)) {
           window.location = "/bomber-man/";
         }
         return;
@@ -178,15 +179,20 @@ class BomberManGame {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
         this.gameOver = true;
+        this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
       }
     }
     if (this.hUDManager.timer === 0) {
-        this.gameOver = true
+      this.gameOver = true
+      this.gameOverMessage = `Time Over\nYour score: ${this.hUDManager.score}\n`
     }
   }
 
   checkVictory() {
     this.gameOver = enemies.length === 0;
+    if (this.gameOver) {
+      this.gameOverMessage = `Victory\nYour score: ${this.hUDManager.score}\n`
+    }
   }
 
   checkPowerUpCollision() {
@@ -213,6 +219,7 @@ export function affectPlayer(x, y) {
     setTimeout(() => {
       game.player.element.remove();
       game.gameOver = true;
+      game.gameOverMessage = `Kill by bomb\nYour score: ${game.hUDManager.score}\n`
     }, 255);
   }
 }
