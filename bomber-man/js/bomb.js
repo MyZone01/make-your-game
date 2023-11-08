@@ -29,6 +29,8 @@ export default class Bomb {
     let keepDownDirection = true;
     let keepLeftDirection = true;
     let keepRightDirection = true;
+
+    affectPlayer(this.x, this.y);
     for (let i = 1; i <= this.explosionRadius; i++) {
       if (keepUpDirection) {
         keepUpDirection = this.explodeInDirection(this.x, this.y - i); // Up
