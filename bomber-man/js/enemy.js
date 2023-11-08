@@ -1,10 +1,11 @@
 import { isValidMove } from "./board.js";
 
 class Enemy {
-    constructor({ x, y }, index) {
+    constructor({ x, y }, index, speed = 10) {
         this.x = x;
         this.y = y;
-        this.wait = 10;
+        this.speed = speed;
+        this.wait = 20 - this.speed;
         this.element = null;
         this.index = index; // Store the enemy index
     }
@@ -18,7 +19,7 @@ class Enemy {
     moveRandomly() {
         this.wait--;
         if (this.wait === 0) {
-            this.wait = 10;
+            this.wait = 20 - this.speed;
             const directions = ['up', 'down', 'left', 'right'];
             const randomDirection = directions[Math.floor(Math.random() * directions.length)];
 
@@ -94,11 +95,12 @@ export function createEnemies(board) {
         let randomPosition = enemiesPositions[i]
 
         const enemyElement = document.createElement('div');
-        enemyElement.innerHTML = i + 1
         enemyElement.classList.add('enemy');
         // You can set enemyElement's initial position styles here
-
-        const enemy = new Enemy(randomPosition, i);
+        const speeds = [5, 10, 15];
+        const speed = speeds[Math.floor(Math.random() * speeds.length)];
+        enemyElement.innerHTML = speed
+        const enemy = new Enemy(randomPosition, i, speed);
         enemy.setElement(enemyElement);
         enemyElement.setAttribute('id', `e-${i + 1}`);
 
