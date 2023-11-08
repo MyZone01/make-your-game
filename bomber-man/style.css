@@ -124,7 +124,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     z-index: 5;
     animation: bomb 1s ease-in-out infinite;
 }

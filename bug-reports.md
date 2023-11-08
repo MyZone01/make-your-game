@@ -5,4 +5,6 @@
 +   [x] wall doesn't wiggle when explode
 +   [ ] make the explosion of a bomb cause the explosion of nearby bombs
 +   [ ] make a bomb kill the player if it places it and don't move
++   [ ] write different message for each death
++   [ ] write message for win
 +   [x] end of time = game over

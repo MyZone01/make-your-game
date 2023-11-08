@@ -80,8 +80,12 @@ const enemiesPositions = [
     { x: 7, y: 7 },
     { x: 8, y: 12 },
     { x: 15, y: 15 },
+    { x: 8, y: 9 },
+    { x: 10, y: 12 },
+    { x: 14, y: 4 },
+    { x: 9, y: 5 }
 ];
-export let numEnemies = 6;
+export let numEnemies = 10;
 
 // Function to create and initialize enemies
 export function createEnemies(board) {

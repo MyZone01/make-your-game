@@ -22,7 +22,7 @@
 - [x] Implémentation des power-ups (bombes supplémentaires, vitesse, etc.) dans le premier niveau.
 
 ## Jour 5 : Optimisation, test et polissage
-- [ ] Implement HUD (Score + Live + Bomb type + Pause menu + Number of available bomb + Timer)
+- [x] Implement HUD (Score + Live + Bomb type + Pause menu + Number of available bomb + Timer)
 - [ ] Optimisation de base pour maintenir une expérience fluide dans le premier niveau.
 - [ ] Tests et débogage intensifs du premier niveau.
 - [ ] Polissage de l'interface utilisateur du premier niveau.
@@ -34,8 +34,4 @@
 ## Jour 7 : Préparation pour le déploiement
 - [ ] Préparation du premier niveau pour le déploiement, y compris l'emballage des fichiers et la création d'une interface utilisateur pour démarrer le premier niveau.
 
-Gardez à l'esprit que ce planning accéléré vous oblige à simplifier considérablement le premier niveau. Vous devrez vous concentrer sur les fonctionnalités de base pour avoir un prototype jouable en une semaine. Pour créer un jeu complet, vous auriez besoin de plus de temps pour développer plusieurs niveaux, des fonctionnalités avancées, et optimiser davantage les performances.
-
-Make blasts for explosion
-Move player, enemies, bombs instances in the game file. 
 
