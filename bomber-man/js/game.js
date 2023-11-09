@@ -49,15 +49,19 @@ class BomberManGame {
     // Handle player controls
     switch (e.key) {
       case "ArrowUp":
+        if (this.player.inputDirection.x !== 0 || this.player.inputDirection.y !== 0) return;
         this.player.inputDirection = { x: 0, y: -1 };
         break;
       case "ArrowDown":
+        if (this.player.inputDirection.x !== 0 || this.player.inputDirection.y !== 0) return;
         this.player.inputDirection = { x: 0, y: 1 };
         break;
       case "ArrowLeft":
+        if (this.player.inputDirection.x !== 0 || this.player.inputDirection.y !== 0) return;
         this.player.inputDirection = { x: -1, y: 0 };
         break;
       case "ArrowRight":
+        if (this.player.inputDirection.x !== 0 || this.player.inputDirection.y !== 0) return;
         this.player.inputDirection = { x: 1, y: 0 };
         break;
       case " ":
@@ -69,6 +73,7 @@ class BomberManGame {
   startGameLoop() {
     const gameLoop = (currentTime) => {
       if (this.gameOver) {
+        clearInterval(this.timerManager.timerInterval);
         if (confirm(this.gameOverMessage)) {
           window.location = "/bomber-man/";
         }

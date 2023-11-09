@@ -30,6 +30,8 @@ export class Player {
         this.element.style.animationName = "none";
         this.inputDirection = { x: 0, y: 0 };
       }, { once: true });
+    } else {
+      this.inputDirection = { x: 0, y: 0 };
     }
   }
 }
