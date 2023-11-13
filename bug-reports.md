@@ -8,3 +8,4 @@
 +   [x] write different message for each death
 +   [x] write message for win
 +   [x] end of time = game over
++   [ ] score increase with game duration
