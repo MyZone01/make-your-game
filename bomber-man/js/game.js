@@ -109,8 +109,8 @@ class BomberManGame {
       } else {
         // Set a timer to explode the bomb after 3 seconds for non-manual bombs
         this.timerManager.addTimer(bomb.id, () => {
-          this.hUDManager.updateScore(bomb.explode());
           this.removeBomb(bomb);
+          this.hUDManager.updateScore(bomb.explode());
         }, 3000);
         this.timerManager.startTimer(bomb.id);
       }
@@ -143,8 +143,8 @@ class BomberManGame {
     this.addBomb = false;
     for (const bomb of this.bombs) {
       if (bomb.manualBomb) {
-        this.hUDManager.updateScore(bomb.explode());
         this.removeBomb(bomb);
+        this.hUDManager.updateScore(bomb.explode());
         return true;
       }
     }
@@ -156,15 +156,15 @@ class BomberManGame {
   }
 
   removeBomb(bomb) {
+    const index = this.bombs.indexOf(bomb);
+    if (index !== -1) {
+      this.bombs.splice(index, 1);
+    }
     setTimeout(() => {
-      const index = this.bombs.indexOf(bomb);
-      if (index !== -1) {
-        this.bombs.splice(index, 1);
         board[bomb.y - 1][bomb.x - 1] = "V";
         gameBoard.removeChild(bomb.element);
         this.availableBombs = this.bombAmount;
         this.hUDManager.updateBombsCount(this.availableBombs);
-      }
     }, 255);
   }
 
@@ -227,4 +227,15 @@ export function affectPlayer(x, y) {
       game.gameOverMessage = `Kill by bomb\nYour score: ${game.hUDManager.score}\n`
     }, 255);
   }
+}
+
+export function affectBombs(x, y) {
+    for (let i = 0; i < game.bombs.length; i++) {
+        const bomb = game.bombs[i];
+        if (bomb.x === x && bomb.y === y) {
+          game.removeBomb(bomb);
+          game.timerManager.cancelTimer(bomb.id);
+          game.hUDManager.updateScore(bomb.explode());
+        }
+    }
 }
