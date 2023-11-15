@@ -8,6 +8,15 @@ import { PowerUp } from './powerup.js';
 import { TimerManager } from "./timer.js";
 const start = document.getElementById("start")
 
+const mainMenuAudio = document.getElementById('mainMenuAudio');
+document.addEventListener("DOMContentLoaded", () => {
+  mainMenuAudio.play().catch(error => {
+    // Gérer les erreurs liées à la lecture automatique
+    console.error("Erreur de lecture audio:", error);
+  });
+});
+
+
 const SPEED = 20;
 
 class BomberManGame {
@@ -221,11 +230,11 @@ const game = new BomberManGame();
 
 start.addEventListener("click", () =>{
   const home = document.getElementById("start-screen")
-  document.body.style.backgroundColor = "black"
   gameBoard.style.display = "grid";
   game.run();
   console.log("ok");
   home.style.display = "none";
+  mainMenuAudio.pause()
 })
 
 export function affectPlayer(x, y) {
