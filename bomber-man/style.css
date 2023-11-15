@@ -5,7 +5,7 @@ body {
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: black;
+    background-color: white;
 }
 
 #pause-menu {
@@ -22,6 +22,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
     z-index: 100;
+
     width: 300px;
 }
 
@@ -61,6 +62,7 @@ body {
     z-index: 5;
     border-radius: 5px;
     font-family: Arial, sans-serif;
+
 }
 
 .hud-element {
@@ -237,4 +239,61 @@ body {
     font-weight: bolder;
     font-size: 1.7rem;
     animation: rainbow .5s ease-in-out infinite;
+}
+
+#start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 10px;
+    color: white;
+    text-shadow: 2px 2px rgb(116, 116, 116);
+    text-transform: uppercase;
+    border: solid 2px black;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 17px;
+    background-color: hsl(49deg 98% 60%);
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+
+#start:active {
+    transform: scale(.9);
+    transition: all 100ms ease;
+}
+
+#start img {
+    transition: all .5s ease;
+    z-index: 2;
+}
+
+.play {
+    transition: all .5s ease;
+    transition-delay: 300ms;
+}
+
+#start:hover img {
+    transform: scale(3) translate(50%);
+}
+
+.now {
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    transition: all .5s ease;
+    z-index: 2;
+}
+
+#start:hover .now {
+    transform: translateX(10px);
+    transition-delay: 300ms;
+}
+
+#start:hover .play {
+    transform: translateX(200%);
+    transition-delay: 300ms;
 }

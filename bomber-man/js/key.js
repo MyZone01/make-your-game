@@ -7,7 +7,7 @@ export class KeyBoardHandler {
 
     addEventListeners() {
         window.addEventListener("keydown", (e) => {
-            if (e.key === "p") {
+            if (e.key === "p" || e.key === "P") {
                 this.callBackOnPause();
                 return
             }

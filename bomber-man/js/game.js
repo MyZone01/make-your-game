@@ -6,6 +6,7 @@ import { KeyBoardHandler } from "./key.js";
 import { Player } from "./player.js";
 import { PowerUp } from './powerup.js';
 import { TimerManager } from "./timer.js";
+const start = document.getElementById("start")
 
 const SPEED = 20;
 
@@ -27,6 +28,7 @@ class BomberManGame {
   }
 
   run() {
+    this.modal = document.getElementById('menu');
     createGameBoard();
     createEnemies(gameBoard);
     gameBoard.appendChild(this.player.element);
@@ -216,7 +218,15 @@ class BomberManGame {
 }
 
 const game = new BomberManGame();
-game.run();
+
+start.addEventListener("click", () =>{
+  const home = document.getElementById("start-screen")
+  document.body.style.backgroundColor = "black"
+  gameBoard.style.display = "grid";
+  game.run();
+  console.log("ok");
+  home.style.display = "none";
+})
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
