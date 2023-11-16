@@ -7,11 +7,13 @@ import { Player } from "./player.js";
 import { PowerUp } from './powerup.js';
 import { TimerManager } from "./timer.js";
 const start = document.getElementById("start")
+const inGameAudio = document.getElementById('inGame');  
+const victorySound = document.getElementById("victorySound")
+
 
 const mainMenuAudio = document.getElementById('mainMenuAudio');
 document.addEventListener("DOMContentLoaded", () => {
   mainMenuAudio.play().catch(error => {
-    // Gérer les erreurs liées à la lecture automatique
     console.error("Erreur de lecture audio:", error);
   });
 });
@@ -37,6 +39,7 @@ class BomberManGame {
   }
 
   run() {
+    inGameAudio.play()
     this.modal = document.getElementById('menu');
     createGameBoard();
     createEnemies(gameBoard);
@@ -84,6 +87,7 @@ class BomberManGame {
   startGameLoop() {
     const gameLoop = (currentTime) => {
       if (this.gameOver) {
+          inGameAudio.pause()
         clearInterval(this.timerManager.timerInterval);
         if (confirm(this.gameOverMessage)) {
           window.location = "/bomber-man/";
@@ -207,6 +211,7 @@ class BomberManGame {
   checkVictory() {
     this.gameOver = enemies.length === 0;
     if (this.gameOver) {
+      victorySound.play();
       this.gameOverMessage = `Victory\nYour score: ${this.hUDManager.score}\n`
     }
   }

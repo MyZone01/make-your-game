@@ -23,6 +23,8 @@ export default class Bomb {
   }
 
   explode() {
+    const explodeSound = document.getElementById('explodeSound');
+    explodeSound.play()
     this.element.style.animation = "none"
 
     let keepUpDirection = true;

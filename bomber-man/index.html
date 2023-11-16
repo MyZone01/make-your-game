@@ -30,7 +30,17 @@
             <button id="restart">Restart</button>
         </div>
     </dialog>
-    <div id="game-board" style="display: none;"></div>
+    <div id="game-board" style="display: none;">
+        <audio id="inGame" loop>
+            <source src="assets/sounds/inGame.mp3" type="audio/mp3">
+        </audio>
+        <audio id="explodeSound">
+            <source src="assets/sounds/Bomb Explodes.wav" type="audio/mp3">
+        </audio>
+        <audio id="victorySound">
+            <source src="assets/sounds/Stage Clear.wav" type="audio/mp3">
+        </audio>
+    </div>
 </body>
 
 </html>
