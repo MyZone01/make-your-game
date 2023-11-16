@@ -5,6 +5,7 @@ export class HUDManager {
         this.bombType = 'SIMPLE';
         this.bombsCount = 1;
         this.timer = 300; // 5 minutes in seconds
+        this.canDecrementLives = true
 
         this.callBackOnPause = callBackOnPause;
         this.modal = document.getElementById('pause-menu');
@@ -74,6 +75,18 @@ export class HUDManager {
     decrementTimer() {
         this.timer--;
         this.timerElement.innerText = `Timer: ${this.formatTime(this.timer)}s`;
+    }
+
+    decrementLives() {
+        if (this.lives > 0 && this.canDecrementLives) {
+            this.lives -= 1;
+            this.livesElement.innerText = `Lives: ${this.lives}`;
+            this.canDecrementLives = false
+        }    
+        // Ajoutez un délai de 3 secondes avant de permettre la prochaine décrémentation
+        setTimeout(() => {
+            this.canDecrementLives = true;
+        }, 3000);
     }
 
     showPauseMenu() {
