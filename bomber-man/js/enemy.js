@@ -7,6 +7,7 @@ class Enemy {
         this.speed = speed;
         this.wait = 20 - this.speed;
         this.element = null;
+        this.lastDirection = "";
         this.index = index; // Store the enemy index
     }
 
@@ -25,15 +26,23 @@ class Enemy {
 
             switch (randomDirection) {
                 case 'up':
+                    if (this.lastDirection === "down") return;
+                    this.lastDirection = randomDirection;
                     this.move(0, -1);
                     break;
                 case 'down':
+                    if (this.lastDirection === "up") return;
+                    this.lastDirection = randomDirection;
                     this.move(0, 1);
                     break;
                 case 'left':
+                    if (this.lastDirection === "right") return;
+                    this.lastDirection = randomDirection;
                     this.move(-1, 0);
                     break;
                 case 'right':
+                    if (this.lastDirection === "left") return;
+                    this.lastDirection = randomDirection;
                     this.move(1, 0);
                     break;
             }
