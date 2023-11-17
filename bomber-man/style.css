@@ -81,10 +81,10 @@ body {
 }
 
 .player {
-    background-color: #9900ff;
     border: .25vmin solid black;
-    border-radius: 50%;
     z-index: 5;
+    background-repeat: no-repeat;
+    border: #219e21;
 }
 
 @keyframes movePlayer {
@@ -110,10 +110,8 @@ body {
     font-size: 1.5rem;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #ff0000;
-    border: .25vmin solid black;
-    border-radius: 50%;
     z-index: 10;
+    background-repeat: no-repeat;
 }
 
 .enemy {

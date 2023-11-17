@@ -3,6 +3,7 @@ import { isValidMove } from "./board.js";
 export class Player {
   constructor() {
     this.element = document.createElement("div");
+    this.element.style.backgroundImage = "url(./fonts/Bomberman.png)"
     this.position = { x: 2, y: 2 };
     this.element.style.gridRowStart = this.position.y;
     this.element.style.gridColumnStart = this.position.x;

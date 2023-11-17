@@ -9,9 +9,11 @@ class Enemy {
         this.element = null;
         this.index = index; // Store the enemy index
     }
-
+    
     setElement(element) {
         this.element = element;
+        this.element.style.backgroundImage = "url(./fonts/enemy3.gif)"
+        element.style.backgroundSize = "30px";
         this.element.style.gridRow = this.y;
         this.element.style.gridColumn = this.x;
     }
@@ -86,7 +88,7 @@ const enemiesPositions = [
     { x: 14, y: 4 },
     { x: 9, y: 5 }
 ];
-export let numEnemies = 1;
+export let numEnemies = 10;
 
 // Function to create and initialize enemies
 export function createEnemies(board) {
@@ -99,7 +101,6 @@ export function createEnemies(board) {
         // You can set enemyElement's initial position styles here
         const speeds = [5, 10, 15];
         const speed = speeds[Math.floor(Math.random() * speeds.length)];
-        enemyElement.innerHTML = speed
         const enemy = new Enemy(randomPosition, i, speed);
         enemy.setElement(enemyElement);
         enemyElement.setAttribute('id', `e-${i + 1}`);
