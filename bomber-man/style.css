@@ -78,6 +78,7 @@ body {
 }
 
 .player {
+    margin: 2.5px;
     background-color: #9900ff;
     border: .25vmin solid black;
     border-radius: 50%;
@@ -101,16 +102,38 @@ body {
 }
 
 .enemy {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #ff0000;
+    background-color: white;
+    margin: 5px;
     border: .25vmin solid black;
-    border-radius: 50%;
+    border-radius: 50% 50% 0 0;
     z-index: 10;
+}
+
+.enemy::after,
+.enemy::before {
+    content: "";
+    background-color: black;
+    position: absolute;
+    top: 10px;
+    display: block;
+    border-radius: 100%;
+    width:7px;
+    height:7px;
+}
+
+.enemy::before {
+    right: 6px;
+}
+
+.enemy::after {
+    left: 6px;
 }
 
 .enemy {
@@ -219,14 +242,22 @@ body {
     }
 }
 
+.wall,
+.block {
+    border-radius: 10px;
+    box-shadow: 2.5px 2.5px 5px #839b77f0,
+        -2.5px -2.5px 5px #e3f2e1eb;
+    margin: 2.5px;
+    border: .25vmin solid #fff;
+    border-radius: 1vmin;
+}
+
 .block {
     background-color: #0b0b8a;
-    border: .25vmin solid #fff;
 }
 
 .wall {
     background-color: #3e3b3b;
-    border: .25vmin solid #ffffff;
 }
 
 .power {
