@@ -108,7 +108,7 @@ export function createEnemies(board) {
         // You can set enemyElement's initial position styles here
         const speeds = [5, 10, 15];
         const speed = speeds[Math.floor(Math.random() * speeds.length)];
-        enemyElement.innerHTML = speed
+        // enemyElement.innerHTML = speed
         const enemy = new Enemy(randomPosition, i, speed);
         enemy.setElement(enemyElement);
         enemyElement.setAttribute('id', `e-${i + 1}`);
@@ -118,6 +118,7 @@ export function createEnemies(board) {
               transform: translate(0, 0);
             }
             100% {
+                filter: blur(1px);
               transform: translate(var(--translate-${i}-x), var(--translate-${i}-y));
             }
         }`;
