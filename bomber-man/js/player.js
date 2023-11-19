@@ -10,8 +10,8 @@ export class Player {
     this.inputDirection = { x: 0, y: 0 };
   }
 
-  update() {
-    if (this.inputDirection.x === 0 && this.inputDirection.y === 0) return;
+  update(gameOver) {
+    if ((this.inputDirection.x === 0 && this.inputDirection.y === 0) || gameOver) return;
 
     const newPositionX = this.position.x + this.inputDirection.x;
     const newPositionY = this.position.y + this.inputDirection.y;

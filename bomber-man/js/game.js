@@ -161,10 +161,10 @@ class BomberManGame {
       this.bombs.splice(index, 1);
     }
     setTimeout(() => {
-        board[bomb.y - 1][bomb.x - 1] = "V";
-        gameBoard.removeChild(bomb.element);
-        this.availableBombs = this.bombAmount;
-        this.hUDManager.updateBombsCount(this.availableBombs);
+      board[bomb.y - 1][bomb.x - 1] = "V";
+      gameBoard.removeChild(bomb.element);
+      this.availableBombs = this.bombAmount;
+      this.hUDManager.updateBombsCount(this.availableBombs);
     }, 255);
   }
 
@@ -172,7 +172,7 @@ class BomberManGame {
     if (this.addBomb) {
       if (!this.detonateBomb()) this.placeBomb();
     }
-    this.player.update();
+    this.player.update(this.gameOver);
     moveEnemies();
     this.checkPowerUpCollision();
     this.checkVictory();
@@ -183,8 +183,15 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
-        this.gameOver = true;
-        this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
+        if (enemy.element.style.animationName === "none") {
+          this.gameOver = true;
+          this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
+        } else {
+          enemy.element.addEventListener('animationend', () => {
+            this.gameOver = true;
+            this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
+          }, { once: true });
+        }
       }
     }
     if (this.hUDManager.timer === 0) {
@@ -230,12 +237,12 @@ export function affectPlayer(x, y) {
 }
 
 export function affectBombs(x, y) {
-    for (let i = 0; i < game.bombs.length; i++) {
-        const bomb = game.bombs[i];
-        if (bomb.x === x && bomb.y === y) {
-          game.removeBomb(bomb);
-          game.timerManager.cancelTimer(bomb.id);
-          game.hUDManager.updateScore(bomb.explode());
-        }
+  for (let i = 0; i < game.bombs.length; i++) {
+    const bomb = game.bombs[i];
+    if (bomb.x === x && bomb.y === y) {
+      game.removeBomb(bomb);
+      game.timerManager.cancelTimer(bomb.id);
+      game.hUDManager.updateScore(bomb.explode());
     }
+  }
 }

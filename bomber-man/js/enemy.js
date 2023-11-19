@@ -71,11 +71,13 @@ class Enemy {
                 // Update the enemy's position in the DOM
                 this.element.style.gridRow = this.y;
                 this.element.style.gridColumn = this.x;
+
             }, { once: true });
 
             // Update the enemy's position in the game grid
             this.x = newX;
             this.y = newY;
+
         }
     }
 
