@@ -12,8 +12,8 @@ class Enemy {
     
     setElement(element) {
         this.element = element;
-        this.element.style.backgroundImage = "url(./fonts/enemy3.gif)"
-        element.style.backgroundSize = "30px";
+        this.element.style.backgroundImage = "url(./fonts/chauve-souris-bat-des-ailes.gif)"
+        element.style.backgroundSize = "45px";
         this.element.style.gridRow = this.y;
         this.element.style.gridColumn = this.x;
     }
