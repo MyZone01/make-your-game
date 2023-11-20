@@ -90,7 +90,7 @@ class BomberManGame {
           inGameAudio.pause()
         clearInterval(this.timerManager.timerInterval);
         if (confirm(this.gameOverMessage)) {
-          window.location = "/bomber-man/";
+          window.location = "/";
         }
         return;
       }
@@ -256,6 +256,7 @@ class BomberManGame {
 const game = new BomberManGame();
 
 start.addEventListener("click", () =>{
+  
   const home = document.getElementById("start-screen")
   gameBoard.style.display = "grid";
   const playSound = document.getElementById("playSound")
