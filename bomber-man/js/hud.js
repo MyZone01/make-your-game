@@ -1,3 +1,6 @@
+const pauseSound = document.getElementById("pauseSound")
+const inGameAudio = document.getElementById('inGame');
+
 export class HUDManager {
     constructor(callBackOnPause) {
         this.score = 0;
@@ -90,10 +93,13 @@ export class HUDManager {
     }
 
     showPauseMenu() {
+        inGameAudio.pause()
+        pauseSound.play()
         this.modal.showModal();
     }
 
     hidePauseMenu() {
+        inGameAudio.play()
         if (this.modal) {
             this.modal.close();
         }
