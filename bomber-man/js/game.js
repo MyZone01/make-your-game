@@ -198,8 +198,26 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
-        this.gameOver = true;
-        this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
+        this.hUDManager.decrementLives()
+          const blinkInterval = setInterval(() => {
+            if (this.player.element.style.visibility === "hidden") {
+              this.player.element.style.visibility = "visible";
+            } else {
+              this.player.element.style.visibility = "hidden";
+            }
+          }, 200);
+        
+          // Arrêter le clignotement après 5 secondes (ou toute autre durée souhaitée)
+          setTimeout(() => {
+            clearInterval(blinkInterval);
+            this.player.element.style.visibility = "visible"; // Assurez-vous que le joueur soit visible à la fin du clignotement
+          }, 5000); // 5 secondes
+        
+        
+        if (this.hUDManager.lives === 0){
+          this.gameOver = true;
+          this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
+        }
       }
     }
     if (this.hUDManager.timer === 0) {
