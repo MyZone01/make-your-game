@@ -198,6 +198,8 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
+        const playerDies = document.getElementById("playerDies")
+        playerDies.play()
         this.hUDManager.decrementLives()
           const blinkInterval = setInterval(() => {
             if (this.player.element.style.visibility === "hidden") {
