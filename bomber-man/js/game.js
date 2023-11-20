@@ -256,6 +256,8 @@ const game = new BomberManGame();
 start.addEventListener("click", () =>{
   const home = document.getElementById("start-screen")
   gameBoard.style.display = "grid";
+  const playSound = document.getElementById("playSound")
+  playSound.play()
   game.run();
   console.log("ok");
   home.style.display = "none";
