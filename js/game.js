@@ -9,6 +9,7 @@ import { TimerManager } from "./timer.js";
 const start = document.getElementById("start")
 const inGameAudio = document.getElementById('inGame');  
 const victorySound = document.getElementById("victorySound")
+const playerDies = document.getElementById("playerDies")
 
 
 const mainMenuAudio = document.getElementById('mainMenuAudio');
@@ -198,7 +199,6 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
-        const playerDies = document.getElementById("playerDies")
         playerDies.play()
         this.hUDManager.decrementLives()
           const blinkInterval = setInterval(() => {
@@ -218,6 +218,7 @@ class BomberManGame {
         
         if (this.hUDManager.lives === 0){
           this.gameOver = true;
+          playerDies.play()
           this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
         }
       }
@@ -270,6 +271,7 @@ start.addEventListener("click", () =>{
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
     game.player.element.style.animation = "explode .25s ease-in-out forwards";
+    playerDies.play()
     setTimeout(() => {
       game.player.element.remove();
       game.gameOver = true;
