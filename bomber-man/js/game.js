@@ -244,6 +244,8 @@ class BomberManGame {
     board[playerY - 1][playerX - 1] = 'V';
     const cell = document.getElementById(`c-${playerY}-${playerX}`);
     if (cell) {
+      const powerUp = document.getElementById("powerups")
+      powerUp.play()
       cell.remove();
     }
   }
