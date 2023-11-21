@@ -7,6 +7,7 @@ class Enemy {
         this.speed = speed;
         this.wait = 20 - this.speed;
         this.element = null;
+        this.lastDirection = "";
         this.index = index; // Store the enemy index
     }
     
@@ -27,15 +28,23 @@ class Enemy {
 
             switch (randomDirection) {
                 case 'up':
+                    if (this.lastDirection === "down") return;
+                    this.lastDirection = randomDirection;
                     this.move(0, -1);
                     break;
                 case 'down':
+                    if (this.lastDirection === "up") return;
+                    this.lastDirection = randomDirection;
                     this.move(0, 1);
                     break;
                 case 'left':
+                    if (this.lastDirection === "right") return;
+                    this.lastDirection = randomDirection;
                     this.move(-1, 0);
                     break;
                 case 'right':
+                    if (this.lastDirection === "left") return;
+                    this.lastDirection = randomDirection;
                     this.move(1, 0);
                     break;
             }
@@ -58,12 +67,11 @@ class Enemy {
             this.element.addEventListener('animationend', () => {
                 // Clear the animation properties and CSS variables
                 this.element.style.animationName = "none";
-                this.element.style.removeProperty(`--translate-${this.index}-x`);
-                this.element.style.removeProperty(`--translate-${this.index}-y`);
 
                 // Update the enemy's position in the DOM
                 this.element.style.gridRow = this.y;
                 this.element.style.gridColumn = this.x;
+
             }, { once: true });
 
             // Update the enemy's position in the game grid
@@ -101,6 +109,7 @@ export function createEnemies(board) {
         // You can set enemyElement's initial position styles here
         const speeds = [5, 10, 15];
         const speed = speeds[Math.floor(Math.random() * speeds.length)];
+        // enemyElement.innerHTML = speed
         const enemy = new Enemy(randomPosition, i, speed);
         enemy.setElement(enemyElement);
         enemyElement.setAttribute('id', `e-${i + 1}`);
@@ -110,6 +119,7 @@ export function createEnemies(board) {
               transform: translate(0, 0);
             }
             100% {
+                filter: blur(2px);
               transform: translate(var(--translate-${i}-x), var(--translate-${i}-y));
             }
         }`;

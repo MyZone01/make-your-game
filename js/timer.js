@@ -44,7 +44,6 @@ export class TimerManager {
 
     // Resume a paused timer
     resumeTimer(timer) {
-
         if (timer && timer.isPaused) {
             timer.startTime = Date.now();
             timer.timerId = setTimeout(() => {
