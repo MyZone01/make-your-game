@@ -222,7 +222,7 @@ body {
     border-radius: 2.5rem;
     filter: blur(10px);
     border: 5px solid red;
-    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(0, 60, 255, 0.95) 30% ,rgba(255, 0, 64, 0.95) 40% ,rgba(0, 255, 106, 0.95) 50% ,rgba(255, 136, 0, 0.95) 74%);
+    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(0, 60, 255, 0.95) 30%, rgba(255, 0, 64, 0.95) 40%, rgba(0, 255, 106, 0.95) 50%, rgba(255, 136, 0, 0.95) 74%);
     transition: all .25s ease-in-out;
 }
 
@@ -357,6 +357,7 @@ body {
     border-radius: 50px;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     transition: all .5s ease;
 }
 
@@ -413,14 +414,16 @@ body {
     align-items: center;
 }
 
-b{
+b {
     color: green;
 }
+
 .how-to-play div {
-    margin-bottom: 10px; /* Ajoute un espace de 10 pixels en bas de chaque div */
+    margin-bottom: 10px;
+    /* Ajoute un espace de 10 pixels en bas de chaque div */
 }
 
-.how-to-play img{
-    width : 50px;
-    height : 30px;
+.how-to-play img {
+    width: 50px;
+    height: 30px;
 }

@@ -86,7 +86,7 @@ export class HUDManager {
             this.lives -= 1;
             this.livesElement.innerText = `Lives: ${this.lives}`;
             this.canDecrementLives = false
-        }    
+        }
         // Ajoutez un délai de 3 secondes avant de permettre la prochaine décrémentation
         setTimeout(() => {
             this.canDecrementLives = true;
@@ -105,6 +105,7 @@ export class HUDManager {
     }
 
     showGameOverMenu(message) {
+        console.log(message);
         const bonusTimer = Math.round((3000 - this.timer) / 10);
         this.updateScore(bonusTimer);
         this.gameOverMenuModal.querySelector(".message").innerText = message + `Your score: ${this.score}\n`;
@@ -119,7 +120,6 @@ export class HUDManager {
     }
 
     togglePauseResume(gamePause) {
-        console.log(gamePause);
         if (gamePause) {
             this.showPauseMenu();
         } else {

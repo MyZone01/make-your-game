@@ -10,7 +10,7 @@ class Enemy {
         this.lastDirection = "";
         this.index = index; // Store the enemy index
     }
-    
+
     setElement(element) {
         this.element = element;
         element.style.backgroundSize = "30px";
