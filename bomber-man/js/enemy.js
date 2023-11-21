@@ -65,8 +65,6 @@ class Enemy {
             this.element.addEventListener('animationend', () => {
                 // Clear the animation properties and CSS variables
                 this.element.style.animationName = "none";
-                this.element.style.removeProperty(`--translate-${this.index}-x`);
-                this.element.style.removeProperty(`--translate-${this.index}-y`);
 
                 // Update the enemy's position in the DOM
                 this.element.style.gridRow = this.y;
@@ -77,7 +75,6 @@ class Enemy {
             // Update the enemy's position in the game grid
             this.x = newX;
             this.y = newY;
-
         }
     }
 
@@ -120,7 +117,7 @@ export function createEnemies(board) {
               transform: translate(0, 0);
             }
             100% {
-                filter: blur(1px);
+                filter: blur(2px);
               transform: translate(var(--translate-${i}-x), var(--translate-${i}-y));
             }
         }`;

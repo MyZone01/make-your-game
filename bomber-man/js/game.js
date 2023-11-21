@@ -32,7 +32,7 @@ class BomberManGame {
     gameBoard.appendChild(this.player.element);
 
     this.keyBoardHandler = new KeyBoardHandler(this.onControlPress.bind(this), this.onGamePause.bind(this));
-    this.hUDManager = new HUDManager(this.onGamePause.bind(this));
+    this.hUDManager = new HUDManager(this.bombAmount, this.currentBombType, this.onGamePause.bind(this));
     this.timerManager = new TimerManager(this.hUDManager);
     this.startGameLoop();
   }
@@ -74,7 +74,7 @@ class BomberManGame {
     const gameLoop = (currentTime) => {
       if (this.gameOver) {
         clearInterval(this.timerManager.timerInterval);
-        if (confirm(this.gameOverMessage)) {
+        if (this.hUDManager.showGameOverMenu(this.gameOverMessage)) {
           window.location = "/bomber-man/";
         }
         return;
@@ -183,27 +183,28 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
+        this.player.inputDirection = { x: 0, y: 0 };
+        this.player.element.style.animation = "explode 1s ease-in-out forwards";
+        this.gameOverMessage = `Kill by enemy\n`
         if (enemy.element.style.animationName === "none") {
           this.gameOver = true;
-          this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
         } else {
           enemy.element.addEventListener('animationend', () => {
             this.gameOver = true;
-            this.gameOverMessage = `Kill by enemy\nYour score: ${this.hUDManager.score}\n`
           }, { once: true });
         }
       }
     }
     if (this.hUDManager.timer === 0) {
       this.gameOver = true
-      this.gameOverMessage = `Time Over\nYour score: ${this.hUDManager.score}\n`
+      this.gameOverMessage = `Time Over\n`
     }
   }
 
   checkVictory() {
     this.gameOver = enemies.length === 0;
     if (this.gameOver) {
-      this.gameOverMessage = `Victory\nYour score: ${this.hUDManager.score}\n`
+      this.gameOverMessage = `Victory\n`
     }
   }
 
@@ -227,11 +228,12 @@ game.run();
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
+    game.gameOver = true;
+    game.player.inputDirection = { x: 0, y: 0 };
+    game.gameOverMessage = `Kill by bomb\n`
     game.player.element.style.animation = "explode .25s ease-in-out forwards";
     setTimeout(() => {
       game.player.element.remove();
-      game.gameOver = true;
-      game.gameOverMessage = `Kill by bomb\nYour score: ${game.hUDManager.score}\n`
     }, 255);
   }
 }

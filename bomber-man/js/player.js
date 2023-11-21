@@ -21,6 +21,8 @@ export class Player {
       this.element.style.setProperty('--translate-y', `${this.element.clientHeight * this.inputDirection.y}px`);
 
       this.element.style.animationName = "movePlayer";
+      this.element.style.animationFillMode = "forwards";
+      this.element.style.animationDuration = "0.125s";
 
       this.element.addEventListener('animationend', () => {
         this.position.x = newPositionX;

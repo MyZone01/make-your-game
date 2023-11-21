@@ -1,30 +1,51 @@
+/* Add bloomberg font family */
+@font-face {
+    font-family: Blomberg;
+    src: url(./fonts/Blomberg.otf);
+}
+
 body {
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     background-color: black;
 }
 
+#game-over-menu,
 #pause-menu {
     position: fixed;
     background-color: transparent;
     border: none;
 }
 
+#game-over-menu h1,
+#pause-menu h1 {
+    font-family: Blomberg;
+    font-size: 5rem;
+    letter-spacing: .125rem;
+}
+
+#game-over-menu p,
+#pause-menu p {
+    font-size: 2.5rem;
+}
+
+#game-over-menu .content,
 #pause-menu .content {
     background-color: #fff;
     padding: 20px;
-    border: 2px solid #2980b9;
-    border-radius: 1.5rem;
+    border-radius: .5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     text-align: center;
     z-index: 100;
-    width: 300px;
+    width: 50vw;
 }
 
+#game-over-menu::before,
 #pause-menu::before {
     content: "";
     display: block;
@@ -34,26 +55,36 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #000000b0;
+    background-color: #000000d3;
 }
 
+#game-over-menu button,
 #pause-menu button {
-    background-color: #3498db;
+    background-color: #000000;
     color: #fff;
     border: none;
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
+    font-size: 2rem;
+    transform: skew(21deg);
+    letter-spacing: .125rem;
+    font-family: Blomberg;
     border-radius: 5px;
+    transition: all .25s ease-in-out;
 }
 
+#game-over-menu button:hover,
 #pause-menu button:hover {
-    background-color: #2980b9;
+    transform: skew(0deg);
+    color: black;
+    background-color: white;
+    border: 1px solid black;
 }
 
 .hud {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     left: 10px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
@@ -64,12 +95,15 @@ body {
 }
 
 .hud-element {
+    letter-spacing: .125rem;
+    font-family: Blomberg;
+    font-size: 1.5rem;
     margin: 5px 0;
 }
 
-
 #game-board {
     background-color: #219e21;
+    /* background-image: url(./img/grass.png); */
     width: 100vmin;
     height: 100vmin;
     display: grid;
@@ -78,11 +112,19 @@ body {
 }
 
 .player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
     margin: 2.5px;
-    background-color: #9900ff;
-    border: .25vmin solid black;
+    /* background-color: #9900ff;
+    border: .25vmin solid black; */
     border-radius: 50%;
     z-index: 5;
+}
+
+.player::after {
+    content: "😁";
 }
 
 @keyframes movePlayer {
@@ -95,12 +137,7 @@ body {
     }
 }
 
-.player {
-    animation: none;
-    animation-fill-mode: forwards;
-    animation-duration: 0.125s;
-}
-
+/* 
 .enemy {
     position: relative;
     display: flex;
@@ -114,9 +151,20 @@ body {
     border: .25vmin solid black;
     border-radius: 50% 50% 0 0;
     z-index: 10;
+} */
+
+.enemy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
-.enemy::after,
+.enemy::after {
+    content: "👻";
+}
+
+/* .enemy::after,
 .enemy::before {
     content: "";
     background-color: black;
@@ -124,8 +172,9 @@ body {
     top: 10px;
     display: block;
     border-radius: 100%;
-    width:7px;
-    height:7px;
+    font-size: 2rem;
+    width: 7px;
+    height: 7px;
 }
 
 .enemy::before {
@@ -134,7 +183,7 @@ body {
 
 .enemy::after {
     left: 6px;
-}
+} */
 
 .enemy {
     animation: none;
@@ -147,7 +196,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 1.5rem;
     z-index: 5;
     animation: bomb 1s ease-in-out infinite;
 }
@@ -170,7 +219,8 @@ body {
     opacity: 0;
     border-radius: 2.5rem;
     filter: blur(10px);
-    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(255, 136, 0, 0.95) 74%);
+    border: 5px solid red;
+    background-image: radial-gradient(rgba(255, 69, 0, 0.95) 0%, rgba(0, 60, 255, 0.95) 30% ,rgba(255, 0, 64, 0.95) 40% ,rgba(0, 255, 106, 0.95) 50% ,rgba(255, 136, 0, 0.95) 74%);
     transition: all .25s ease-in-out;
 }
 
@@ -244,20 +294,33 @@ body {
 
 .wall,
 .block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
-    box-shadow: 2.5px 2.5px 5px #839b77f0,
-        -2.5px -2.5px 5px #e3f2e1eb;
+    box-shadow: 2.5px 2.5px 5px #7c9270f0,
+        -2.5px -2.5px 5px #c4cfc3eb;
     margin: 2.5px;
-    border: .25vmin solid #fff;
+    border: .25vmin solid #ffffff;
     border-radius: 1vmin;
 }
 
 .block {
-    background-color: #0b0b8a;
+    font-size: 1.5rem;
+    /* background-color: #0b0b8a; */
+}
+
+.block::after {
+    content: "🪨";
 }
 
 .wall {
-    background-color: #3e3b3b;
+    font-size: 1.5rem;
+    /* background-color: #3e3b3b; */
+}
+
+.wall::after {
+    content: "🧱";
 }
 
 .power {
@@ -267,5 +330,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bolder;
     font-size: 1.7rem;
+    border-radius: 10px;
+    box-shadow: 2.5px 2.5px 5px #7c9270f0,
+        -2.5px -2.5px 5px #c4cfc3eb;
+    margin: 2.5px;
+    border: .25vmin solid #ffffff;
     animation: rainbow .5s ease-in-out infinite;
 }

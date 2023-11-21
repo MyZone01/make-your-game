@@ -1,13 +1,14 @@
 export class HUDManager {
-    constructor(callBackOnPause) {
+    constructor(bombsCount, currentBombType, callBackOnPause) {
         this.score = 0;
         this.lives = 3;
-        this.bombType = 'SIMPLE';
-        this.bombsCount = 1;
+        this.bombType = currentBombType.toUpperCase();
+        this.bombsCount = bombsCount;
         this.timer = 300; // 5 minutes in seconds
 
         this.callBackOnPause = callBackOnPause;
-        this.modal = document.getElementById('pause-menu');
+        this.pauseMenuModal = document.getElementById('pause-menu');
+        this.gameOverMenuModal = document.getElementById('game-over-menu');
         this.hudContainer = document.createElement('div');
         this.hudContainer.className = 'hud';
         document.body.appendChild(this.hudContainer);
@@ -24,15 +25,15 @@ export class HUDManager {
         this.hudContainer.appendChild(this.bombsCountElement);
         this.hudContainer.appendChild(this.timerElement);
 
-        const resumeButton = this.modal.querySelector('button#resume');
-        const restartButton = this.modal.querySelector('button#restart');
+        const resumeButton = this.pauseMenuModal.querySelector('button#resume');
+        const restartButton = this.pauseMenuModal.querySelector('button#restart');
 
         restartButton.addEventListener('click', () => {
             window.location.reload(); // Reload the page to restart the game.
         });
 
         resumeButton.addEventListener('click', () => {
-            this.modal.close();
+            this.pauseMenuModal.close();
             this.callBackOnPause(); // You can call your onGamePause callback to resume the game.
         });
 
@@ -77,12 +78,26 @@ export class HUDManager {
     }
 
     showPauseMenu() {
-        this.modal.showModal();
+        this.pauseMenuModal.showModal();
+    }
+
+    showGameOverMenu(message) {
+        const bonusTimer = Math.round((3000 - this.timer) / 10);
+        this.updateScore(bonusTimer);
+        this.gameOverMenuModal.querySelector(".message").innerText = message + `Your score: ${this.score}\n`;
+        const restartButton = this.gameOverMenuModal.querySelector('button');
+
+        restartButton.addEventListener('click', () => {
+            window.location.reload(); // Reload the page to restart the game.
+        });
+        setTimeout(() => {
+            this.gameOverMenuModal.showModal();
+        }, 750)
     }
 
     hidePauseMenu() {
-        if (this.modal) {
-            this.modal.close();
+        if (this.pauseMenuModal) {
+            this.pauseMenuModal.close();
         }
     }
 
