@@ -88,7 +88,6 @@ class BomberManGame {
 
   startGameLoop() {
     const gameLoop = (currentTime) => {
-      console.log(this.gameOver);
       if (this.gameOver) {
         inGameAudio.pause()
         clearInterval(this.timerManager.timerInterval);
@@ -278,9 +277,7 @@ start.addEventListener("click", () => {
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
-    console.log("player dies" + game.gameOver);
     game.gameOver = true;
-    console.log("player dies" + game.gameOver);
     game.hUDManager.updateLives(0);
     game.player.inputDirection = { x: 0, y: 0 };
     game.gameOverMessage = `Killed by bomb\n`

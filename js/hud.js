@@ -105,7 +105,6 @@ export class HUDManager {
     }
 
     showGameOverMenu(message) {
-        console.log(message);
         const bonusTimer = Math.round((3000 - this.timer) / 10);
         this.updateScore(bonusTimer);
         this.gameOverMenuModal.querySelector(".message").innerText = message + `Your score: ${this.score}\n`;
