@@ -35,7 +35,7 @@ class BomberManGame {
     this.bombs = [];
     this.gameOverMessage = "";
     this.currentBombType = "simple"; // Initial bomb type
-    this.bombAmount = 1; // Track the number of bombs he can place at time
+    this.bombAmount = 1000; // Track the number of bombs he can place at time
     this.availableBombs = this.bombAmount;
   }
 
@@ -148,7 +148,7 @@ class BomberManGame {
   getBombRadius() {
     switch (this.currentBombType) {
       case "simple":
-        return 1;
+        return 21;
       case "super":
         return 3;
       default:

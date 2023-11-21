@@ -102,7 +102,6 @@ export class HUDManager {
     hidePauseMenu() {
         inGameAudio.play()
         if (this.pauseMenuModal) this.pauseMenuModal.close();
-        this.pauseMenuModal.showModal();
     }
 
     showGameOverMenu(message) {
@@ -120,6 +119,7 @@ export class HUDManager {
     }
 
     togglePauseResume(gamePause) {
+        console.log(gamePause);
         if (gamePause) {
             this.showPauseMenu();
         } else {
