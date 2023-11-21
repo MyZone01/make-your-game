@@ -373,6 +373,7 @@ h1 {
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    text-decoration: none;
     transition: all .5s ease;
 }
 

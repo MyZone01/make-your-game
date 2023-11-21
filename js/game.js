@@ -6,19 +6,10 @@ import { KeyBoardHandler } from "./key.js";
 import { Player } from "./player.js";
 import { PowerUp } from './powerup.js';
 import { TimerManager } from "./timer.js";
-const start = document.getElementById("start")
+
 const inGameAudio = document.getElementById('inGame');
 const victorySound = document.getElementById("victorySound")
 const playerDies = document.getElementById("playerDies")
-
-
-const mainMenuAudio = document.getElementById('mainMenuAudio');
-document.addEventListener("DOMContentLoaded", () => {
-  mainMenuAudio.play().catch(error => {
-    console.error("Erreur de lecture audio:", error);
-  });
-});
-
 
 const SPEED = 20;
 
@@ -188,7 +179,7 @@ class BomberManGame {
       if (!this.detonateBomb()) this.placeBomb();
     }
     this.player.update(this.gameOver);
-    moveEnemies();
+    // moveEnemies();
     this.checkPowerUpCollision();
     this.checkVictory();
     this.checkDeath();
@@ -264,16 +255,8 @@ class BomberManGame {
 }
 
 const game = new BomberManGame();
-
-start.addEventListener("click", () => {
-  const home = document.getElementById("start-screen")
-  gameBoard.style.display = "grid";
-  const playSound = document.getElementById("playSound")
-  playSound.play()
-  game.run();
-  home.style.display = "none";
-  mainMenuAudio.pause()
-})
+gameBoard.style.display = "grid";
+game.run();
 
 export function affectPlayer(x, y) {
   if (game.player.position.x === x && game.player.position.y === y) {
