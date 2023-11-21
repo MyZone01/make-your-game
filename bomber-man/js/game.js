@@ -38,6 +38,7 @@ class BomberManGame {
   }
 
   onGamePause() {
+    if (this.gameOver) return;
     this.gamePause = !this.gamePause;
     this.timerManager.togglePauseResume(this.gamePause);
     this.hUDManager.togglePauseResume(this.gamePause);
