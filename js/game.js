@@ -220,7 +220,7 @@ class BomberManGame {
           playerDies.play()
           this.player.inputDirection = { x: 0, y: 0 };
           this.player.element.style.animation = "explode 1s ease-in-out forwards";
-          this.gameOverMessage = `Kill by enemy\n`
+          this.gameOverMessage = `Killed by enemy\n`
           if (enemy.element.style.animationName === "none") {
             this.gameOver = true;
           } else {
@@ -283,7 +283,7 @@ export function affectPlayer(x, y) {
     console.log("player dies" + game.gameOver);
     game.hUDManager.updateLives(0);
     game.player.inputDirection = { x: 0, y: 0 };
-    game.gameOverMessage = `Kill by bomb\n`
+    game.gameOverMessage = `Killed by bomb\n`
     game.player.element.style.animation = "explode .25s ease-in-out forwards";
     playerDies.play()
     setTimeout(() => {
