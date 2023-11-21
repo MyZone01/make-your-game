@@ -35,7 +35,7 @@ class BomberManGame {
     this.bombs = [];
     this.gameOverMessage = "";
     this.currentBombType = "simple"; // Initial bomb type
-    this.bombAmount = 1000; // Track the number of bombs he can place at time
+    this.bombAmount = 1; // Track the number of bombs he can place at time
     this.availableBombs = this.bombAmount;
   }
 
@@ -146,7 +146,7 @@ class BomberManGame {
   getBombRadius() {
     switch (this.currentBombType) {
       case "simple":
-        return 21;
+        return 1;
       case "super":
         return 3;
       default:
@@ -188,7 +188,7 @@ class BomberManGame {
       if (!this.detonateBomb()) this.placeBomb();
     }
     this.player.update(this.gameOver);
-    // moveEnemies();
+    moveEnemies();
     this.checkPowerUpCollision();
     this.checkVictory();
     this.checkDeath();
@@ -212,7 +212,7 @@ class BomberManGame {
         setTimeout(() => {
           clearInterval(blinkInterval);
           this.player.element.style.visibility = "visible"; // Assurez-vous que le joueur soit visible à la fin du clignotement
-        }, 5000); // 5 secondes
+        }, 2500); // 5 secondes
 
 
         if (this.hUDManager.lives === 0) {
