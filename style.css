@@ -16,6 +16,12 @@ body {
     background-size: cover;
 }
 
+h1 {
+    font-family: Blomberg;
+    font-size: 10rem;
+    letter-spacing: .125rem;
+}
+
 #game-over-menu,
 #pause-menu {
     position: fixed;
@@ -23,8 +29,8 @@ body {
     border: none;
 }
 
-#game-over-menu h1,
-#pause-menu h1 {
+#game-over-menu h2,
+#pause-menu h2 {
     font-family: Blomberg;
     font-size: 5rem;
     letter-spacing: .125rem;
@@ -340,19 +346,28 @@ body {
     animation: rainbow .5s ease-in-out infinite;
 }
 
+#start-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    flex-direction: column;
+    transform: translateY(-5vw);
+}
+
 #start {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 0 10px;
+    padding: 0 20px;
     color: white;
     text-shadow: 2px 2px rgb(116, 116, 116);
     text-transform: uppercase;
     border: solid 2px black;
     letter-spacing: 1px;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 50px;
     background-color: rgba(37, 37, 37, 0.5);
     border-radius: 50px;
     position: relative;
