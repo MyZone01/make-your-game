@@ -28,12 +28,11 @@
     <script>
         const mainMenuAudio = document.getElementById('mainMenuAudio');
         document.addEventListener("DOMContentLoaded", () => {
+            mainMenuAudio.volume = 0.5;
             mainMenuAudio.play().catch(error => {
                 console.error("Erreur de lecture audio:", error);
             });
         });
-        start.addEventListener("click", () =>{
-    })
     </script>
 </body>
 

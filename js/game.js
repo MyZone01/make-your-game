@@ -8,6 +8,7 @@ import { PowerUp } from './powerup.js';
 import { TimerManager } from "./timer.js";
 
 const inGameAudio = document.getElementById('inGame');
+inGameAudio.volume = 0.01;
 const victorySound = document.getElementById("victorySound")
 const playerDies = document.getElementById("playerDies")
 
