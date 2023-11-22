@@ -203,7 +203,7 @@ class BomberManGame {
         setTimeout(() => {
           clearInterval(blinkInterval);
           this.player.element.style.visibility = "visible"; // Assurez-vous que le joueur soit visible à la fin du clignotement
-        }, 2500); // 5 secondes
+        }, 3000); // 5 secondes
 
 
         if (this.hUDManager.lives === 0) {
