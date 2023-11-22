@@ -26,7 +26,7 @@ A simple Bomberman game implemented in HTML, CSS, and Vanilla JavaScript.
 
 ## DEMO
 
-[Link to the live demo of the game (if available)]
+Link to the [live demo](https://bomberman-mu.vercel.app/) of the game
 
 ## GETTING STARTED
 
