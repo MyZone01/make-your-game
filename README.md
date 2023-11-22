@@ -1,8 +1,10 @@
 # 💣 BOMBERMAN GAME
 
-![Bomberman Game Screenshot](screenshot.png)
+|Launch Page|Game Page|
+:-:|:-:
+![Bomberman Game Screenshot](img/screenshot.1.jpeg)|![Bomberman Game Screenshot](img/screenshot.2.jpeg)
 
-A simple Bomberman game implemented in HTML, CSS, and JavaScript.
+A simple Bomberman game implemented in HTML, CSS, and Vanilla JavaScript.
 
 ## TABLE OF CONTENTS
 
@@ -24,7 +26,7 @@ A simple Bomberman game implemented in HTML, CSS, and JavaScript.
 
 ## DEMO
 
-[Link to the live demo of the game (if available)]
+Link to the [live demo](https://bomberman-mu.vercel.app/) of the game
 
 ## GETTING STARTED
 
@@ -41,6 +43,6 @@ To play the game locally, you'll need a web browser.
 3. Start playing!
 
 ## AUTHORS
-+  Serigne Saliou Mbacke MBAYE (@serignmbaye)
++  Serigne Saliou Mbacké MBAYE (@serignmbaye)
 +  Abdou Karim SOW (@abdouksow)
 +  Ivan Yossanguem (@iyossang)
