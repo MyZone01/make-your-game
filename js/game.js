@@ -179,7 +179,7 @@ class BomberManGame {
       if (!this.detonateBomb()) this.placeBomb();
     }
     this.player.update(this.gameOver);
-    // moveEnemies();
+    moveEnemies();
     this.checkPowerUpCollision();
     this.checkVictory();
     this.checkDeath();
@@ -230,10 +230,10 @@ class BomberManGame {
   checkVictory() {
     if (enemies.length === 0) {
       this.gameOver = true;
-    }
-    if (this.gameOver) {
-      victorySound.play();
-      this.gameOverMessage = `Victory\n`
+      if (this.gameOver) {
+        victorySound.play();
+        this.gameOverMessage = `Victory\n`
+      }
     }
   }
 
