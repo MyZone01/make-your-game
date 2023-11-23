@@ -24,48 +24,30 @@ export default class Bomb {
 
   explode() {
     const explodeSound = document.getElementById('explodeSound');
-    explodeSound.play()
-    this.element.style.animation = "none"
-
-    let keepUpDirection = true;
-    let keepDownDirection = true;
-    let keepLeftDirection = true;
-    let keepRightDirection = true;
-
+    explodeSound.play();
+    this.element.classList.add('exploding');
     affectPlayer(this.x, this.y);
     affectEnemies(this.x, this.y);
     affectBombs(this.x, this.y);
-    for (let i = 1; i <= this.explosionRadius; i++) {
-      if (keepUpDirection) {
-        keepUpDirection = this.explodeInDirection(this.x, this.y - i); // Up
-        if (keepUpDirection) {
-          this.verticalBlast.style.opacity = "1"
-          this.verticalBlast.style.top = `-${i * 100}%`
+    const directions = [
+      { dx: 0, dy: -1, blast: this.verticalBlast, axis: 'top' },
+      { dx: 0, dy: 1, blast: this.verticalBlast, axis: 'bottom' },
+      { dx: -1, dy: 0, blast: this.horizontalBlast, axis: 'left' },
+      { dx: 1, dy: 0, blast: this.horizontalBlast, axis: 'right' },
+    ];
+
+    directions.forEach(({ dx, dy, blast, axis }) => {
+      for (let i = 1; i <= this.explosionRadius; i++) {
+        if (this.explodeInDirection(this.x + dx * i, this.y + dy * i, blast, axis)) {
+          blast.style.opacity = '1';
+          blast.style[axis] = `-${i * 100}%`;
+        } else {
+          break;
         }
       }
-      if (keepDownDirection) {
-        keepDownDirection = this.explodeInDirection(this.x, this.y + i); // Down
-        if (keepDownDirection) {
-          this.verticalBlast.style.opacity = "1"
-          this.verticalBlast.style.bottom = `-${i * 100}%`
-        }
-      }
-      if (keepLeftDirection) {
-        keepLeftDirection = this.explodeInDirection(this.x - i, this.y); // Left
-        if (keepLeftDirection) {
-          this.horizontalBlast.style.opacity = "1"
-          this.horizontalBlast.style.left = `-${i * 100}%`
-        }
-      }
-      if (keepRightDirection) {
-        keepRightDirection = this.explodeInDirection(this.x + i, this.y); // Right
-        if (keepRightDirection) {
-          this.horizontalBlast.style.opacity = "1"
-          this.horizontalBlast.style.right = `-${i * 100}%`
-        }
-      }
-    }
-    return this.damageScore
+    });
+
+    return this.damageScore;
   }
 
   explodeInDirection(x, y) {

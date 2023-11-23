@@ -8,26 +8,16 @@ export class HUDManager {
         this.bombType = currentBombType.toUpperCase();
         this.bombsCount = bombsCount;
         this.timer = 300; // 5 minutes in seconds
-        this.canDecrementLives = true
-
+        this.canDecrementLives = true;
         this.callBackOnPause = callBackOnPause;
+
         this.pauseMenuModal = document.getElementById('pause-menu');
         this.gameOverMenuModal = document.getElementById('game-over-menu');
         this.hudContainer = document.createElement('div');
         this.hudContainer.className = 'hud';
         document.body.appendChild(this.hudContainer);
 
-        this.scoreElement = this.createHUDElement(`Score: ${this.score}`);
-        this.livesElement = this.createHUDElement(`Lives: ${this.lives}`);
-        this.bombTypeElement = this.createHUDElement(`Bomb Type: ${this.bombType}`);
-        this.bombsCountElement = this.createHUDElement(`Bombs: ${this.bombsCount}`);
-        this.timerElement = this.createHUDElement(`Timer: ${this.formatTime(this.timer)}s`);
-
-        this.hudContainer.appendChild(this.scoreElement);
-        this.hudContainer.appendChild(this.livesElement);
-        this.hudContainer.appendChild(this.bombTypeElement);
-        this.hudContainer.appendChild(this.bombsCountElement);
-        this.hudContainer.appendChild(this.timerElement);
+        this.createHUDElements();
 
         const resumeButton = this.pauseMenuModal.querySelector('button#resume');
         const restartButton = this.pauseMenuModal.querySelector('button#restart');
@@ -40,9 +30,24 @@ export class HUDManager {
             this.pauseMenuModal.close();
             this.callBackOnPause(); // You can call your onGamePause callback to resume the game.
         });
-
     }
 
+    createHUDElements() {
+        const elements = [
+            { name: 'Score', property: 'score', value: this.score },
+            { name: 'Lives', property: 'lives', value: this.lives },
+            { name: 'Bomb Type', property: 'bombType', value: this.bombType },
+            { name: 'Bombs', property: 'bombsCount', value: this.bombsCount },
+            { name: 'Timer', property: 'timer', value: this.formatTime(this.timer) }
+        ];
+
+        elements.forEach(item => {
+            const element = this.createHUDElement(`${item.name}: ${item.value}`);
+            this[item.property + 'Element'] = element;
+            this.hudContainer.appendChild(element);
+        });
+    }
+    
     createHUDElement(text) {
         const element = document.createElement('div');
         element.className = 'hud-element';

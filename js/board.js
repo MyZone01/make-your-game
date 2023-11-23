@@ -51,16 +51,18 @@ export function isWall(x, y) {
 }
 
 export function createGameBoard() {
+    const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < GRID_SIZE; i++) {
         for (let j = 0; j < GRID_SIZE; j++) {
             if (board[i][j] === 'V') continue;
 
             const cell = document.createElement('div');
-
+            let cellClass = '';
             if (board[i][j] === 'B') {
-                cell.classList.add('block');
+                cellClass = 'block';
             } else {
-                cell.classList.add('wall');
+                cellClass = 'wall';
                 if (Math.random() < 0.4) {
                     const powerUpTypes = ['X', 'S', 'M'];
                     const randomPowerUp = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
@@ -68,13 +70,16 @@ export function createGameBoard() {
                 }
             }
 
-            cell.setAttribute('id', `c-${i + 1}-${j + 1}`)
-            gameBoard.appendChild(cell);
+            cell.classList.add(cellClass);
+            cell.setAttribute('id', `c-${i + 1}-${j + 1}`);
+            cell.style.gridRowStart = i + 1;
+            cell.style.gridColumnStart = j + 1;
 
-            cell.style.gridRowStart = i + 1
-            cell.style.gridColumnStart = j + 1
+            fragment.appendChild(cell);
         }
     }
+
+    gameBoard.appendChild(fragment);
 }
 
 export function destroyWall(x, y) {
