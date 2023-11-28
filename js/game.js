@@ -4,13 +4,13 @@ import { createEnemies, enemies, moveEnemies } from "./enemy.js";
 import { HUDManager } from "./hud.js";
 import { KeyBoardHandler } from "./key.js";
 import { Player } from "./player.js";
-import { PowerUp } from './powerup.js';
+import { PowerUp } from "./powerup.js";
 import { TimerManager } from "./timer.js";
 
-const inGameAudio = document.getElementById('inGame');
+const inGameAudio = document.getElementById("inGame");
 inGameAudio.volume = 0.01;
-const victorySound = document.getElementById("victorySound")
-const playerDies = document.getElementById("playerDies")
+const victorySound = document.getElementById("victorySound");
+const playerDies = document.getElementById("playerDies");
 
 const SPEED = 20;
 
@@ -32,8 +32,8 @@ class BomberManGame {
   }
 
   run() {
-    inGameAudio.play()
-    this.modal = document.getElementById('menu');
+    inGameAudio.play();
+    this.modal = document.getElementById("menu");
     createGameBoard();
     createEnemies(gameBoard);
     gameBoard.appendChild(this.player.element);
@@ -81,7 +81,7 @@ class BomberManGame {
   startGameLoop() {
     const gameLoop = (currentTime) => {
       if (this.gameOver) {
-        inGameAudio.pause()
+        inGameAudio.pause();
         clearInterval(this.timerManager.timerInterval);
         this.hUDManager.showGameOverMenu(this.gameOverMessage);
         return;
@@ -115,10 +115,14 @@ class BomberManGame {
         bomb.manualBomb = true; // Set the bomb as manual
       } else {
         // Set a timer to explode the bomb after 3 seconds for non-manual bombs
-        this.timerManager.addTimer(bomb.id, () => {
-          this.removeBomb(bomb);
-          this.hUDManager.updateScore(bomb.explode());
-        }, 3000);
+        this.timerManager.addTimer(
+          bomb.id,
+          () => {
+            this.removeBomb(bomb);
+            this.hUDManager.updateScore(bomb.explode());
+          },
+          3000
+        );
         this.timerManager.startTimer(bomb.id);
       }
     }
@@ -131,7 +135,7 @@ class BomberManGame {
   }
 
   resetBombCount() {
-    this.bombAmount = 1
+    this.bombAmount = 1;
     this.hUDManager.updateBombsCount(this.availableBombs);
   }
 
@@ -190,8 +194,8 @@ class BomberManGame {
     for (let i = 0; i < enemies.length; i++) {
       const enemy = enemies[i];
       if (enemy.x === this.player.position.x && enemy.y === this.player.position.y) {
-        playerDies.play()
-        this.hUDManager.decrementLives()
+        playerDies.play();
+        this.hUDManager.decrementLives();
         const blinkInterval = setInterval(() => {
           if (this.player.element.style.visibility === "hidden") {
             this.player.element.style.visibility = "visible";
@@ -206,25 +210,28 @@ class BomberManGame {
           this.player.element.style.visibility = "visible"; // Assurez-vous que le joueur soit visible à la fin du clignotement
         }, 3000); // 5 secondes
 
-
         if (this.hUDManager.lives === 0) {
-          playerDies.play()
+          playerDies.play();
           this.player.inputDirection = { x: 0, y: 0 };
           this.player.element.style.animation = "explode 1s ease-in-out forwards";
-          this.gameOverMessage = `Killed by enemy\n`
+          this.gameOverMessage = `Killed by enemy\n`;
           if (enemy.element.style.animationName === "none") {
             this.gameOver = true;
           } else {
-            enemy.element.addEventListener('animationend', () => {
-              this.gameOver = true;
-            }, { once: true });
+            enemy.element.addEventListener(
+              "animationend",
+              () => {
+                this.gameOver = true;
+              },
+              { once: true }
+            );
           }
         }
       }
     }
     if (this.hUDManager.timer === 0) {
-      this.gameOver = true
-      this.gameOverMessage = `Time Over\n`
+      this.gameOver = true;
+      this.gameOverMessage = `Time Over\n`;
     }
   }
 
@@ -233,7 +240,7 @@ class BomberManGame {
       this.gameOver = true;
       if (this.gameOver) {
         victorySound.play();
-        this.gameOverMessage = `Victory\n`
+        this.gameOverMessage = `Victory\n`;
       }
     }
   }
@@ -241,15 +248,15 @@ class BomberManGame {
   checkPowerUpCollision() {
     const playerX = this.player.position.x;
     const playerY = this.player.position.y;
-    if (board[playerY - 1][playerX - 1] === 'V' || board[playerY - 1][playerX - 1] === 'B') return;
+    if (board[playerY - 1][playerX - 1] === "V" || board[playerY - 1][playerX - 1] === "B") return;
 
     const powerUp = new PowerUp(board[playerY - 1][playerX - 1]);
     powerUp.applyEffect(this);
-    board[playerY - 1][playerX - 1] = 'V';
+    board[playerY - 1][playerX - 1] = "V";
     const cell = document.getElementById(`c-${playerY}-${playerX}`);
     if (cell) {
-      const powerUp = document.getElementById("powerups")
-      powerUp.play()
+      const powerUp = document.getElementById("powerups");
+      powerUp.play();
       cell.remove();
     }
   }
@@ -264,9 +271,9 @@ export function affectPlayer(x, y) {
     game.gameOver = true;
     game.hUDManager.updateLives(0);
     game.player.inputDirection = { x: 0, y: 0 };
-    game.gameOverMessage = `Killed by bomb\n`
+    game.gameOverMessage = `Killed by bomb\n`;
     game.player.element.style.animation = "explode .25s ease-in-out forwards";
-    playerDies.play()
+    playerDies.play();
     setTimeout(() => {
       game.player.element.remove();
     }, 305);
