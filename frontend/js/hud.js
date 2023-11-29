@@ -34,7 +34,6 @@ export class HUDManager {
     this.socket.onmessage = (event) => {
       this.leaderboardModal.querySelector(".pagination-container #percentile").style.color = "green";
       this.leaderboardModal.querySelector(".pagination-container #percentile").innerText = event.data;
-      console.log(event.data);
     };
     resumeButton.addEventListener("click", () => {
       this.pauseMenuModal.close();
@@ -129,7 +128,6 @@ export class HUDManager {
     submitButton.addEventListener("click", () => {
       const usernameInput = this.gameOverMenuModal.querySelector("#username");
       var username = usernameInput.value;
-      console.log(username);
       if (username.trim() !== "") {
         this.PlayerName = username.trim();
         usernameInput.value = "";
@@ -142,8 +140,7 @@ export class HUDManager {
               "rank": 0
           }
         }`;
-        const toto = JSON.stringify(jsonGame);
-        console.log(toto);
+
         this.socket.send(jsonGame);
         this.gameOverMenuModal.close();
         fetchDataAndRender();
@@ -154,9 +151,6 @@ export class HUDManager {
         this.gameOverMenuModal.querySelector("#response").innerText = "Enter a valid Name !";
         return;
       }
-    });
-    restartButton.addEventListener("click", () => {
-      window.location.reload(); // Reload the page to restart the game.
     });
     setTimeout(() => {
       this.gameOverMenuModal.showModal();
@@ -239,5 +233,11 @@ function fetchDataAndRender() {
       generateContent(data, currentPage);
       generatePagination(totalPages);
     })
-    .catch((error) => console.error("Error fetching data:", error));
+    .catch((error) => {
+      const leaderboardModal = document.getElementById("leaderboard");
+      leaderboardModal.querySelector(".pagination-container #percentile").style.color = "red";
+      leaderboardModal.querySelector(".pagination-container #percentile").innerText =
+        "Something wrong happened. The server may be down.";
+      console.error("Error fetching data:", error);
+    });
 }
