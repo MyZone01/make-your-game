@@ -231,9 +231,9 @@ h1 {
   border: 5px solid red;
   background-image: radial-gradient(
     rgba(255, 69, 0, 0.95) 0%,
-    rgba(0, 60, 255, 0.95) 30%,
+    rgba(255, 0, 17, 0.95) 30%,
     rgba(255, 0, 64, 0.95) 40%,
-    rgba(0, 255, 106, 0.95) 50%,
+    rgba(255, 166, 0, 0.95) 50%,
     rgba(255, 136, 0, 0.95) 74%
   );
   transition: all 0.25s ease-in-out;
