@@ -263,7 +263,6 @@ class BomberManGame {
 }
 
 const game = new BomberManGame();
-gameBoard.style.display = "grid";
 game.run();
 
 export function affectPlayer(x, y) {

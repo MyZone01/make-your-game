@@ -449,35 +449,6 @@ b {
   height: 30px;
 }
 
-.blast {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.2s ease-in-out, top 0.2s ease-in-out, bottom 0.2s ease-in-out, left 0.2s ease-in-out,
-    right 0.2s ease-in-out;
-  opacity: 0;
-  z-index: 1; /* Assurez-vous que cela convient à votre mise en page */
-}
-
-.exploding .blast {
-  opacity: 1;
-}
-
-/* Classe pour l'animation de mouvement des ennemis */
-@keyframes moveEnemy {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: var(--translate-x) var(--translate-y);
-  }
-}
-
-/* Classe pour appliquer l'animation de mouvement */
-.enemy-moving {
-  animation: moveEnemy 0.3s linear forwards;
-}
-
 .pagination-container {
   text-align: center;
 }
